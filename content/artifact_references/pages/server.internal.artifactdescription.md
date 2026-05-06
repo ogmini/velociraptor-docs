@@ -1,7 +1,12 @@
 ---
 title: Server.Internal.ArtifactDescription
 hidden: true
+sitemap:
+  disable: true
 tags: [Internal Artifact]
+description: |
+  <pre><code class="language-yaml">
+  name: Server.Internal.ArtifactDescription
 ---
 
 
@@ -23,6 +28,15 @@ reports:
       {{ if $artifact.BuiltIn }}
       {{ else }}
       ##### Custom Artifact
+      {{ end }}
+
+      {{ if and $artifact.Metadata $artifact.Metadata.Tags }}
+      ##### Tags
+
+      {{ range $i, $t := $artifact.Metadata.Tags }}
+      * {{ $t }}
+      {{ end }}
+
       {{ end }}
 
       {{ if $artifact.Author }}

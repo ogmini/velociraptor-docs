@@ -1,10 +1,18 @@
 ---
 title: Windows.NTFS.ExtendedAttributes
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Adversaries may use NTFS file attributes for defense evasion to hide malicious
+  data. This artifact parses NTFS Extended attributes ($EA).
+  The artifact firstly queries the MFT, then enriches NTFS data to check for
+  Extended Attributes. Several filters can be applied such as file search,
+  Extended Attribute size, name or content.
 ---
 
-Adversaries may use NTFS file attributes for defence evasion to hide malicious
+Adversaries may use NTFS file attributes for defense evasion to hide malicious
 data. This artifact parses NTFS Extended attributes ($EA).
 The artifact firstly queries the MFT, then enriches NTFS data to check for
 Extended Attributes. Several filters can be applied such as file search,
@@ -21,7 +29,7 @@ typically is very small and available in NtfsMetadata field of output.
 name: Windows.NTFS.ExtendedAttributes
 author: "Matt Green - @mgreen27"
 description: |
-  Adversaries may use NTFS file attributes for defence evasion to hide malicious
+  Adversaries may use NTFS file attributes for defense evasion to hide malicious
   data. This artifact parses NTFS Extended attributes ($EA).
   The artifact firstly queries the MFT, then enriches NTFS data to check for
   Extended Attributes. Several filters can be applied such as file search,

@@ -1,13 +1,17 @@
 ---
 title: Admin.Client.Upgrade.Debian
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Remotely push new client updates to Debian hosts.
 ---
 
 Remotely push new client updates to Debian hosts.
 
-NOTE: This artifact requires that you supply a client Debian package using the
-tools interface or using the "debian client" command. Simply click on the tool
+NOTE: This artifact requires that you supply a client Debian package by using the
+tools interface or by using the "debian client" command. Simply click on the tool
 in the GUI and upload a package.
 
 
@@ -16,8 +20,8 @@ name: Admin.Client.Upgrade.Debian
 description: |
   Remotely push new client updates to Debian hosts.
 
-  NOTE: This artifact requires that you supply a client Debian package using the
-  tools interface or using the "debian client" command. Simply click on the tool
+  NOTE: This artifact requires that you supply a client Debian package by using the
+  tools interface or by using the "debian client" command. Simply click on the tool
   in the GUI and upload a package.
 
 tools:

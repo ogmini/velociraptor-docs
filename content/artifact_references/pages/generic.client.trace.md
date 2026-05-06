@@ -1,7 +1,13 @@
 ---
 title: Generic.Client.Trace
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact collects profiling information about the running
+  client. The artifact is automatically added when the GUI selects a
+  non zero Trace frequency.
 ---
 
 This artifact collects profiling information about the running

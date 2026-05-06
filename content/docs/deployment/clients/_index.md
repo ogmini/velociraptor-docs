@@ -4,6 +4,8 @@ weight: 25
 last_reviewed: 2024-11-30
 summary: |
   How to run, and optionally install, clients on the most common platforms.
+description: |
+  We refer to Velociraptor endpoint agents as **clients**.
 ---
 
 We refer to Velociraptor endpoint agents as **clients**.
@@ -32,7 +34,36 @@ target platform+architecture combination.
 
 {{% /notice %}}
 
+
 ## Generating the client configuration file
+
+{{% notice tip "There are new easier ways to do this!" %}}
+
+This section describes client packaging from a relatively low-level perspective.
+
+While it's important to understand client installer packaging, in recent
+versions of Velociraptor we have simplified this process by automating it via
+built-in server artifacts. You will find links to run these artifacts on the
+Welcome page.
+
+![](welcome_installers.png)
+
+Also when you create a new
+[org](/docs/deployment/orgs/)
+using the `Server.Orgs.NewOrg` artifact it will, by default, also create Windows
+and Linux client installers for that org.
+
+We do recommend that you read this section so that you understand what the
+client config is, as this is a key aspect of all client installer packages.
+However you probably won't want to create client packages this way unless you
+need advanced customization or want to build the installer packages separately
+from your server environment.
+
+If you've created client installer packages by running the artifacts linked on
+the Welcome page then you can skip ahead to
+[Installing the client as a service](#installing-the-client-as-a-service).
+
+{{% /notice %}}
 
 There are several ways to run clients, depending on your needs. Ultimately
 however this amounts to running the Velociraptor binary and providing it with a
@@ -40,14 +71,14 @@ however this amounts to running the Velociraptor binary and providing it with a
 material, connection information and other client-related settings.
 
 We saw how to generate the server configuration file in the
-[server deployment guide]({{< ref "/docs/deployment/server/#generate-the-configuration-file" >}}).
+[server deployment guide](/docs/deployment/server/deployment_example/#1-generate-the-configuration-file).
 The client configuration is contained within the server configuration.
 
 ![Client config is a subset of the full config](client_config_yaml.svg)
 
 When we "generate" a client config file we are effectively extracting the `Client`
 section from the full config. If you are using the
-[orgs]({{< ref "/docs/deployment/orgs/" >}})
+[orgs](/docs/deployment/orgs/)
 feature then you will need a separate client config file for each org, since the
 config also contains a `nonce` value that associates the client with a specific
 org.
@@ -61,7 +92,7 @@ There are two ways to accomplish this task which we explain below:
 
 If you are _only_ interested in Windows clients and will _only_ be creating MSI
 installer packages, then the MSI repacking method described
-[here]({{< relref "#option-1-using-the-velociraptor-gui" >}})
+[here](#option-1-using-the-velociraptor-gui)
 will use the client config for the current org. In that case you don't actually
 need to download the client config file, although you may still want to read
 this section to understand more about the topic of client config files.
@@ -173,10 +204,11 @@ the section [Agentless deployment](#agentless-deployment).
 
 ### Windows
 
-The recommended way to install Velociraptor as a client on Windows is via the
-release MSI which you can find on our [Downloads]({{< ref "/downloads/" >}}) page. Previous
-releases can be found on the [Releases page](https://github.com/Velocidex/velociraptor/releases)
-at Github.
+The recommended way to install the Velociraptor client as a service on Windows
+is via a Microsoft Installer (MSI) package. The benefit of using this
+installer format is that most enterprise system administration tools are capable
+of deploying MSI packages. For example, you can use SCCM or Group Policy to
+deploy the MSI to a target organizational unit.
 
 An MSI is a standard Windows installer package. The benefit of using this
 installer format is that most enterprise system administration tools are capable
@@ -215,9 +247,7 @@ Since the Velociraptor client requires *your* unique configuration file to
 identify the location of *your* server, we can't package the configuration file
 in the official release. Therefore, the official MSI does not include a valid
 configuration file. You will need to modify the release MSI to include your
-client configuration file, which you
-[generated earlier]({{< ref "/docs/deployment/quickstart/#generate-the-configuration-file" >}}),
-and this is done through a process we call "repacking".
+client configuration file. This is done through a process we call "repacking".
 
 The official release installs the Velociraptor executable into
 `C:\Program Files\Velociraptor\`. It then creates a new Windows service that
@@ -229,7 +259,7 @@ will be upgraded and the client configuration file will be overwritten.
 
 The easiest way to repack the MSI package so that it includes your client config
 file is by using the
-[`Server.Utils.CreateMSI`]({{< ref "/artifact_references/pages/server.utils.createmsi/" >}})
+[`Server.Utils.CreateMSI`](/artifact_references/pages/server.utils.createmsi/)
 server artifact.
 
 1. In the Velociraptor web GUI, simply switch to the relevant Organization, then
@@ -266,11 +296,15 @@ output file names so that you know exactly what they are.
 {{% /notice %}}
 
 To repack the MSI with a custom config on the command line we use the `config`
-command, and the `repack` subcommand, with the `--msi` flag.
+command with the `repack` subcommand, along with the `--msi` flag.
 
-In all cases we need to tell Velociraptor which MSI we want to repack (usually
-it's the [official release MSI]({{< ref "/downloads/" >}}): either 64-bit or 32-bit) and what
-the output file should be named.
+In all cases we need to tell Velociraptor:
+* which MSI we want to repack (usually
+  it's the [official release MSI](/downloads/) - either 64-bit or
+  32-bit - but previous releases can also be found on the
+  [Releases page](https://github.com/Velocidex/velociraptor/releases)
+  at GitHub if you need them), and
+* what the output file should be named.
 
 {{< tabs >}} {{% tab name="Linux" %}}
 ```shell
@@ -289,7 +323,7 @@ velociraptor.exe config repack --msi velociraptor-windows.msi client.config.yaml
 {{% /tab %}}
 {{< /tabs >}}
 
-If you are using Velociraptor [organizations]({{< ref "/docs/deployment/orgs/" >}}) ("orgs")
+If you are using Velociraptor [organizations](/docs/deployment/orgs/) ("orgs")
 then you can obtain the client configuration file for each org from the Home
 page in the GUI. Ensure that you are in the `root` org so that the configs for
 all orgs are accessible.
@@ -358,7 +392,7 @@ To summarize the process, you will need to perform the following steps:
 
 ![Modifying the WiX configuration](image36.png)
 
-3. Install the [WiX Toolset](http://wixtoolset.org/releases/) on your
+3. Install the [WiX Toolset](https://github.com/wixtoolset/wix3/releases) on your
    Windows host.
 
 4. Add your custom `client.config.xml` file and the appropriate Velociraptor
@@ -539,7 +573,7 @@ solution.
 
 Some of the considerations and complexities regarding deployments in macOS
 environments are described in
-[this presentation]({{< ref "/presentations/2022_velocon/#mac-response--the-good-the-bad-and-the-ugly" >}}).
+[this presentation](/presentations/2022_velocon/#mac-response--the-good-the-bad-and-the-ugly).
 and may be helpful.
 
 ##### Jamf Pro deployment example
@@ -618,7 +652,7 @@ sudo ./$filename --config client.config.yaml service install;
 
 In **Settings > Privacy & Security > Full Disk Access** `velociraptor` can still appear as disabled, even when it is correctly configured in the MDM Profile. To ensure the FDA has been enabled, follow the verification steps:
 
-- Run [MacOS.System.TCC](https://docs.velociraptor.app/artifact_references/pages/macos.system.tcc/) artifact in Velociraptor
+- Run [MacOS.System.TCC](/artifact_references/pages/macos.system.tcc/) artifact in Velociraptor
 - If return output is empty **> no Full Disk Access (FDA)**
 - If you see actual data **> Full Disk Access (FDA) is enabled for `velociraptor`!**
 
@@ -723,9 +757,6 @@ need to tell it where to find the Linux binary.
 {{% /tab %}}
 {{< /tabs >}}
 
-If the output file name is not specified (using the `--output` flag) then it
-will be auto-generated and include the version number and architecture.
-
 By default, if the `--binary` flag is not specified, then the installer package
 will be created using the binary that invoked the `debian client` command. To
 package a binary for a different architecture, for example arm64, you must
@@ -772,9 +803,6 @@ need to tell it where to find the Linux binary.
 {{% /tab %}}
 {{< /tabs >}}
 
-If the output file name is not specified (using the `--output` flag) then it
-will be auto-generated and include the version number and architecture.
-
 By default, if the `--binary` flag is not specified, then the installer package
 will be created using the binary that invoked the `rpm client` command. To
 package a binary for a different architecture, for example arm64, you must
@@ -803,7 +831,7 @@ the Go 1.20 release. This means that Windows XP, Windows server 2003, and
 Windows 7/Vista can no longer be built using a supported version of Go. We may
 make occasional (depending on demand for it) builds for Windows 7 using an old
 unsupported version of Go, but these will not be supported and may not be the
-latest version. Please see [our Support Policy]({{< ref "/docs/overview/support/" >}}).
+latest version. Please see [our Support Policy](/docs/overview/support/).
 
 We also distribute 32-bit binaries for Windows but not for Linux. If you need
 32-bit Linux builds you will need to build from source. You can do this easily
@@ -835,7 +863,7 @@ reboot. So this method is suitable for quick hunts on corporate (non roaming)
 assets.
 
 <!--
-See this [blog post]({{< ref "/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" >}}) for details of how to deploy Velociraptor in agentless mode.
+See this [blog post](/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html/) for details of how to deploy Velociraptor in agentless mode.
 -->
 
 #### Create a network share
@@ -942,25 +970,91 @@ velociraptor.exe --config ... client -v --mutant ArandomString
 ## Client upgrades
 
 The client's identity is derived from the client's cryptographic certificate
-which is stored in the `writeback` location on the endpoint (For example by
-default `C:\Program Files\Velociraptor\velociraptor.writeback.yaml`).
+which is stored in the **writeback file**, as defined by the key
+`Client.writeback_<platform>` in the client config.
 
-We generally try to preserve this file between updates in order to ensure
-clients do not change their client id. The default provided WiX script ensures
-the file remains (even if the package is uninstalled completely) in order to
-ensure a consistent client id for the host.
+For example, by default on Windows this will be
+`C:\Program Files\Velociraptor\velociraptor.writeback.yaml` and
+`/etc/velociraptor.writeback.yaml` on Linux or macOS.
 
-Generally it is sufficient to repackage the latest client binary in a new MSI,
-after downloading it from the
-[GitHub Release Page](https://github.com/Velocidex/velociraptor/releases).
-Installing the new MSI is simply a matter of using standard software management
-tools.
+We generally try to allow this file to persist on disk, even after uninstalls,
+in order to ensure that clients do not change their client ID. The
+[default provided WiX script](https://github.com/Velocidex/velociraptor/tree/master/docs/wix)
+ensures the file remains in order to maintain a consistent client id for the
+host.
 
-{{% notice tip "Remotely upgrading clients" %}}
+{{% notice note "Client-Server Backward Compatibility" %}}
 
-It is possible to remotely upgrade the client by pushing a new MSI to the
-endpoint and installing it. This is handled by the `Admin.Client.Upgrade`
-artifact. To use it, simply collect the artifact from the endpoint and click the
+The Velociraptor server is intended to be
+[backwardly-compatible with older clients](/docs/overview/support/#client-and-server-versioning)
+across the previous few releases, which allows you to upgrade the server and
+then upgrade the clients. This backward-compatibility is mainly in terms of
+client-server communication - that is, older clients should be able to continue
+communicating with a newer server version. However, older clients will not be
+able to run artifacts that use newer features and functionality, so ideally you
+should try to upgrade your clients to the same version as the server as soon as
+possible after
+[upgrading the server](/docs/deployment/server/upgrades/).
+
+Note that you should always upgrade the server first. When creating new
+installer packages, as described below, the server will attempt to download any
+additional Velociraptor binaries from GitHub. The server uses a built-in
+artifact named `Server.Internal.ToolDependencies` that contains links to the
+binaries _that match the server version_. So, by default, the server artifacts
+that automate the creation of new client installers will always create ones that
+match the server version.
+
+{{% /notice %}}
+
+### Creating new installation packages
+
+If you've previously installed your clients using the client operating system's
+package manager then the first step in upgrading is to create a new installer
+package, just as you did for your initial deployment.
+
+For Windows and Linux the appropriate installer packages can be easily created
+using the `Server.Utils.CreateMSI` and `Server.Utils.CreateLinuxPackages` server
+artifacts.
+
+![Launching the repackaging artifacts from the Welcome screen](admin_client_repackage1.png)
+
+These artifacts will attempt to download any additional Velociraptor binaries
+from GitHub, as needed. These binaries will correspond to the server's version.
+You can manually override the binary by clicking on the tool name and
+uploading the binary that you want to use, but usually this is not necessary.
+
+![Selecting the repackaging artifacts](admin_client_repackage2.png)
+
+When your launch the collection you will see it pause briefly while downloading
+any binaries that are needed. These binaries are stored in the server's
+[tools inventory](/docs/artifacts/tools/) and will not be
+downloaded again if these artifact are run subsequently.
+
+The installer packages can then be downloaded from the collections **Uploaded
+Files** tab.
+
+![Repackaged Windows installers](uploaded_files.png)
+
+### Remotely upgrading clients
+
+The newly created client installer packages can be deployed using your favourite
+enterprise software management tool, or by using the built-in
+`Admin.Client.Upgrade.<Platform>` artifacts which use the existing client to
+run the installer.
+
+While it is possible to use the Velociraptor client to upgrade itself, many
+organizations have strict processes and procedures around software management
+and using a standard software management tool might be mandated by the
+organization. You should take this into consideration, especially if you're
+managing Velociraptor in someone else's network environment.
+
+Regardless of the process you choose, you should always perform a limited
+initial rollout to verify that everything works smoothly and as expected.
+
+To use the `Admin.Client.Upgrade.<Platform>` artifacts, you can create a hunt
+which runs the artifact on the targeted endpoints.
+
+and click the
 tool setup screen.
 
 ![Configuring remote upgrade artifact](remote_upgrade_msi.svg)
@@ -974,8 +1068,6 @@ Note that when installing the MSI using Velociraptor, the Velociraptor process
 will be killed part way through collecting the artifact, so it would appear to
 never complete it (in the GUI the flow looks hung). This is OK and part of the
 upgrade process.
-
-{{% /notice %}}
 
 To verify that clients are upgraded we recommend running the
 `Generic.Client.Info` hunt periodically. This hunt will refresh the server's

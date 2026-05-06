@@ -1,12 +1,16 @@
 ---
 title: Windows.EventLogs.Evtx
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Parses and returns events from Windows evtx logs.
 ---
 
 Parses and returns events from Windows evtx logs.
 
-Each event is returned in full, but results can be narrowed using a glob
+Each event is returned in full, but results can be narrowed by using a glob
 pattern for evtx files, a timespan, and regexes to match the evtx path, event
 channel, and/or event ID:
 
@@ -44,7 +48,7 @@ name: Windows.EventLogs.Evtx
 description: |
   Parses and returns events from Windows evtx logs.
 
-  Each event is returned in full, but results can be narrowed using a glob
+  Each event is returned in full, but results can be narrowed by using a glob
   pattern for evtx files, a timespan, and regexes to match the evtx path, event
   channel, and/or event ID:
 
@@ -141,5 +145,45 @@ sources:
 
       SELECT * FROM evtxsearch(pathList=fspaths)
 
+    notebook:
+       - name: Simplified view
+         type: vql_suggestion
+         template: |
+            LET Levels &lt;= dict(
+                `0`='Always',
+                `1`='Critical',
+                `2`='Error',
+                `3`='Warning',
+                `4`='Info',
+                `5`='Verbose')
+            LET S = scope()
+
+            SELECT TimeCreated,
+                   System AS _System,
+                   EventID,
+                   get(item=Levels, field=str(str=System.Level)) AS Level,
+                   S.System.Execution.ProcessID AS PID,
+                   Message,
+                   S.EventData AS Data
+            FROM source()
+            ORDER BY TimeCreated
+
+       - name: Event count as plot
+         type: vql_suggestion
+         template: |
+            /*
+            # Event count
+
+            {{ define "Events" }}
+            SELECT int(int=TimeCreated.Unix / 60) * 60 AS MinBin,
+                                    count() AS Count
+              FROM source()
+              GROUP BY MinBin
+              ORDER BY MinBin
+            {{ end }}
+            {{ Query "Events" | TimeChart }}
+            */
+
+            LET Dummy &lt;= 42
 </code></pre>
 

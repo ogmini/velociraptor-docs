@@ -1,7 +1,12 @@
 ---
 title: Windows.Registry.RDP
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact will collect historical RDP server names and MRU items stored 
+  in each users NTUser.dat
 ---
 
 This artifact will collect historical RDP server names and MRU items stored 

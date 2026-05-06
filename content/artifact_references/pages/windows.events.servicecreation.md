@@ -1,7 +1,11 @@
 ---
 title: Windows.Events.ServiceCreation
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Event Artifact]
+description: |
+  Monitor for creation of new services.
 ---
 
 Monitor for creation of new services.

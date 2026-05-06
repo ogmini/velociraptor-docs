@@ -1,7 +1,11 @@
 ---
 title: Linux.Sys.Crontab
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Displays parsed information from crontab.
 ---
 
 Displays parsed information from crontab.

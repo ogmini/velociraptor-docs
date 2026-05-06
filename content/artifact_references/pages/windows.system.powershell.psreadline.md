@@ -1,17 +1,21 @@
 ---
 title: Windows.System.Powershell.PSReadline
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This Artifact will search and extract lines from PSReadline history file.
 ---
 
 This Artifact will search and extract lines from PSReadline history file.
 
-Powershell is commonly used by attackers across all stages of the attack
+PowerShell is commonly used by attackers across all stages of the attack
 lifecycle. The PSReadline module is responsible for command history and from
-Powershell 5 on Windows 10 default configuration saves a copy of the console
+PowerShell 5 on Windows 10, the default configuration saves a copy of the console
 history to disk.
 
-There are several parameter's available for search leveraging regex.
+There are several parameters available for search leveraging regex.
 - SearchStrings enables regex search over a PSReadline line.
 - StringWhiteList enables a regex whitelist for results.
 - UserRegex enables a regex search on Username
@@ -23,12 +27,12 @@ name: Windows.System.Powershell.PSReadline
 description: |
   This Artifact will search and extract lines from PSReadline history file.
 
-  Powershell is commonly used by attackers across all stages of the attack
+  PowerShell is commonly used by attackers across all stages of the attack
   lifecycle. The PSReadline module is responsible for command history and from
-  Powershell 5 on Windows 10 default configuration saves a copy of the console
+  PowerShell 5 on Windows 10, the default configuration saves a copy of the console
   history to disk.
 
-  There are several parameter's available for search leveraging regex.
+  There are several parameters available for search leveraging regex.
   - SearchStrings enables regex search over a PSReadline line.
   - StringWhiteList enables a regex whitelist for results.
   - UserRegex enables a regex search on Username

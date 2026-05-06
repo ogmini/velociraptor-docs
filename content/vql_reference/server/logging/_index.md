@@ -2,7 +2,11 @@
 title: logging
 index: true
 noTitle: true
+sitemap:
+   disable: true
 no_edit: true
+description: |
+  Watch the logs emitted by the server.
 ---
 
 
@@ -23,8 +27,4 @@ component||list of string
 prelog||bool
 
 <span class="permission_list vql_type">Required permissions:</span><span class="permission_list linkcolour label label-important">SERVER_ADMIN</span>
-
-### Description
-
-Watch the logs emitted by the server.
 

@@ -1,7 +1,12 @@
 ---
 title: Windows.Sys.Drivers
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Details for in-use Windows device drivers. This does not display
+  installed but unused drivers.
 ---
 
 Details for in-use Windows device drivers. This does not display

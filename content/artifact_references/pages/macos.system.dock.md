@@ -1,12 +1,18 @@
 ---
 title: MacOS.System.Dock
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact examines the contents of the user's dock.  The
+  property list entry for each application represented within the dock
+  can be modified to point to a malicious application.
 ---
 
 This artifact examines the contents of the user's dock.  The
 property list entry for each application represented within the dock
-can be modified to point to a malcious application.
+can be modified to point to a malicious application.
 
  By comparing the application name, CFURLString, and book, we can
  gather greater context to assist in determining if an adversary may
@@ -19,7 +25,7 @@ name: MacOS.System.Dock
 description: |
   This artifact examines the contents of the user's dock.  The
   property list entry for each application represented within the dock
-  can be modified to point to a malcious application.
+  can be modified to point to a malicious application.
 
    By comparing the application name, CFURLString, and book, we can
    gather greater context to assist in determining if an adversary may

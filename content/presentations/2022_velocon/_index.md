@@ -2,6 +2,9 @@
 title: Velocon 2022
 menutitle: Velocon 2022
 weight: 75
+description: |
+  On Sept 15, 2022 We held our first VeloCon - a day-long virtual summit
+  as we DIG DEEPER TOGETHER!
 ---
 
 On Sept 15, 2022 We held our first VeloCon - a day-long virtual summit
@@ -104,7 +107,7 @@ methods for reverse engineering software systems. Now, he's heading
 APTA Technologies, a start-up building machine learning tools to
 understand software behavior .
 
-Affiliation: APTA Technologies, https://apta.tech
+Affiliation: APTA Technologies
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/lFfAam4KLuY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

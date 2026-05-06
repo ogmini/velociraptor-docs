@@ -1,14 +1,19 @@
 ---
 title: Windows.Events.TrackProcesses
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Event Artifact]
+description: |
+  Uses Sysmon and pslist to keep track of running processes by using the
+  Velociraptor Process Tracker.
 ---
 
-This artifact uses sysmon and pslist to keep track of running
-processes using the Velociraptor process tracker.
+Uses Sysmon and pslist to keep track of running processes by using the
+Velociraptor Process Tracker.
 
 The Process Tracker keeps track of exited processes, and resolves
-process callchains from it in memory cache.
+process call chains from it in memory cache.
 
 This event artifact enables the global process tracker and makes it
 possible to run many other artifacts that depend on the process
@@ -18,11 +23,11 @@ tracker.
 <pre><code class="language-yaml">
 name: Windows.Events.TrackProcesses
 description: |
-  This artifact uses sysmon and pslist to keep track of running
-  processes using the Velociraptor process tracker.
+  Uses Sysmon and pslist to keep track of running processes by using the
+  Velociraptor Process Tracker.
 
   The Process Tracker keeps track of exited processes, and resolves
-  process callchains from it in memory cache.
+  process call chains from it in memory cache.
 
   This event artifact enables the global process tracker and makes it
   possible to run many other artifacts that depend on the process
@@ -57,12 +62,17 @@ parameters:
     type: bool
     description: Add process information enrichments (can use more resources)
 
+  - name: PROCESS_TRACKER_CACHE
+    default: '%TEMP%/processes.sqlite'
+    description: |
+      Cache file for process tracker.
+
 sources:
   - precondition:
       SELECT OS From info() where OS = 'windows'
 
     query: |
-      // Make sure sysmon is installed.
+      // Ensure that sysmon is installed.
       LET _ &lt;= SELECT * FROM Artifact.Windows.Sysinternals.SysmonInstall(
          SysmonFileLocation=SysmonFileLocation)
 

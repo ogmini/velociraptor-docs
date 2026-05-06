@@ -1,7 +1,15 @@
 ---
 title: Windows.Persistence.Debug
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Windows allows specific configuration of various executables via a
+  registry key. Some keys allow defining a debugger to attach to a
+  program as it is run. If this debugger is launched for commonly used
+  programs (e.g. notepad) then another program can be launched at the
+  same time (with the same privileges).
 ---
 
 Windows allows specific configuration of various executables via a
@@ -10,9 +18,9 @@ program as it is run. If this debugger is launched for commonly used
 programs (e.g. notepad) then another program can be launched at the
 same time (with the same privileges).
 
-There is an additional key for x86 executables HKEY_LOCAL_MACHINE\
+There is an additional key for x86 executables `HKEY_LOCAL_MACHINE\
 SOFTWARE\wow6432node\Microsoft\Windows NT\CurrentVersion\Image File
-Execution Options\* however this is kept inlign with the x64 key and
+Execution Options\*` however this is kept inline with the x64 key and
 therefore does not need to be processed.
 
 Limitations: This queries the live registry and therefore does not
@@ -28,9 +36,9 @@ description: |
   programs (e.g. notepad) then another program can be launched at the
   same time (with the same privileges).
 
-  There is an additional key for x86 executables HKEY_LOCAL_MACHINE\
+  There is an additional key for x86 executables `HKEY_LOCAL_MACHINE\
   SOFTWARE\wow6432node\Microsoft\Windows NT\CurrentVersion\Image File
-  Execution Options\* however this is kept inlign with the x64 key and
+  Execution Options\*` however this is kept inline with the x64 key and
   therefore does not need to be processed.
 
   Limitations: This queries the live registry and therefore does not

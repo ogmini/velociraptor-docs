@@ -1,7 +1,11 @@
 ---
 title: Windows.Forensics.Pst
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Parses PST files.
 ---
 
 Parses PST files.

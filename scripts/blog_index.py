@@ -27,7 +27,7 @@ for root, dirs, files in os.walk(blog_root_directory):
         continue
 
       data = yaml.safe_load(m.group(1))
-      if data.get("index_page") or data.get("noindex"):
+      if data.get("index_page") or data.get("noindex") or data.get("draft"):
         continue
 
       link = yaml_filename.lstrip("contents").replace("\\", "/")
@@ -60,7 +60,7 @@ index = sorted(index, key=lambda x: x["date"],
                reverse=True)
 
 with open(output_data_path, "w") as fd:
-  fd.write(json.dumps(index))
+  fd.write(json.dumps(index, indent=1))
   print("Writing data.json in %s" % output_data_path)
 
 if os.getenv('CI'):

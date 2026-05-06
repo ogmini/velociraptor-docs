@@ -1,7 +1,13 @@
 ---
 title: Windows.Sys.Users
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  List User accounts by inspecting registry keys. This method is a
+  reliable indicator for users who have physically logged into the
+  system and thereby created local profiles.
 ---
 
 List User accounts by inspecting registry keys. This method is a
@@ -38,6 +44,7 @@ sources:
     query: |
         LET GetTimestamp(High, Low) = if(condition=High,
                 then=timestamp(winfiletime=High * 4294967296 + Low))
+        LET S = scope()
 
         -- lookupSID() may not be available on deaddisk analysis
         SELECT split(string=Key.OSPath.Basename, sep="-")[-1] as Uid,
@@ -52,9 +59,9 @@ sources:
                 FROM stat(filename=expand(path=ProfileImagePath))
             } AS HomedirMtime,
            dict(ProfileLoadTime=GetTimestamp(
-                   High=LocalProfileLoadTimeHigh, Low=LocalProfileLoadTimeLow),
+                   High=S.LocalProfileLoadTimeHigh, Low=S.LocalProfileLoadTimeLow),
                 ProfileUnloadTime=GetTimestamp(
-                   High=LocalProfileUnloadTimeHigh, Low=LocalProfileUnloadTimeLow)
+                   High=S.LocalProfileUnloadTimeHigh, Low=S.LocalProfileUnloadTimeLow)
            ) AS Data
         FROM read_reg_key(globs=remoteRegKey, accessor="registry")
 

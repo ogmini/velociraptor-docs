@@ -1,7 +1,12 @@
 ---
 title: Server.Monitoring.ClientCount
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Event Artifact]
+description: |
+  An artifact that sends an email every hour of the current state of
+  the deployment.
 ---
 
 An artifact that sends an email every hour of the current state of

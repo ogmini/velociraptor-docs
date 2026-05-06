@@ -1,12 +1,18 @@
 ---
 title: Windows.Carving.CobaltStrike
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact extracts Cobalt Strike configuration from a byte stream, process
+  or file on disk such as a process dump. Best used as a triage step against a
+  detection of a Cobalt Strike beacon via a YARA process scan.
 ---
 
-This artifact extracts cobalt strike configuration from a byte stream, process
+This artifact extracts Cobalt Strike configuration from a byte stream, process
 or file on disk such as a process dump. Best used as a triage step against a
-detection of a cobalt strike beacon via a yara process scan.
+detection of a Cobalt Strike beacon via a YARA process scan.
 
 The User can define bytes, file glob, process name or pid regex as a target. The
 content will search for a configuration pattern, extract a defined byte size,
@@ -16,7 +22,7 @@ xor with discovered key, then attempt configuration extraction.
 (depending on version) but trivial to change.
 - Configuration is built in a typical index / type / length / value structure
 with either big endian values or zero terminated strings.
-- If no beacon is found, parser will fallback to CobaltStrike Shellcode analysis.
+- If no beacon is found, parser will fallback to Cobalt Strike Shellcode analysis.
 
 This content simply carves the configuration and does not unpack files on
 disk. That means pointing this artifact as a packed or obfuscated file may not
@@ -29,9 +35,9 @@ Unpacking later version.
 name: Windows.Carving.CobaltStrike
 author: Matt Green - @mgreen27
 description: |
-  This artifact extracts cobalt strike configuration from a byte stream, process
+  This artifact extracts Cobalt Strike configuration from a byte stream, process
   or file on disk such as a process dump. Best used as a triage step against a
-  detection of a cobalt strike beacon via a yara process scan.
+  detection of a Cobalt Strike beacon via a YARA process scan.
 
   The User can define bytes, file glob, process name or pid regex as a target. The
   content will search for a configuration pattern, extract a defined byte size,
@@ -41,7 +47,7 @@ description: |
   (depending on version) but trivial to change.
   - Configuration is built in a typical index / type / length / value structure
   with either big endian values or zero terminated strings.
-  - If no beacon is found, parser will fallback to CobaltStrike Shellcode analysis.
+  - If no beacon is found, parser will fallback to Cobalt Strike Shellcode analysis.
 
   This content simply carves the configuration and does not unpack files on
   disk. That means pointing this artifact as a packed or obfuscated file may not
@@ -398,10 +404,10 @@ export: |
     [Shellcode, 0, [
         ["__Position", 0, "Value",{"value":"x=&gt;unhex(string=position(data=_Data))"}],
         ["Server", 0, "Value",{"value":"x=&gt;regex_replace(source=regex_replace(source=x.__Position,re='\\x{00}.{4}[^$]*$',replace=''),re='\u0000',replace='')"}],
-        ["TargetUri", 0, "Value",{"value":"x=&gt;find_strings(data=_Data,length=5,filter='^/').Strings[0]"}],
+        ["TargetUri", 0, "Value",{"value":"x=&gt;find_strings(data=_Data, length=5, filterRegex='^/').Strings[0]"}],
         ["__LicenseBytes", 0, "Value",{"value":"x=&gt;read_file(accessor='data',filename=x.__Position || '', offset=len(list=x.Server) + 1 ,length=4)"}],
         ["License", 0, "Value",{"value":"x=&gt;parse_binary(accessor='data', filename=x.__LicenseBytes,struct='uint32b')"}],
-        ["Strings", 0, "Value",{"value":"x=&gt;find_strings(data=_Data,length=5,filter='.').Strings"}],
+        ["Strings", 0, "Value",{"value":"x=&gt;find_strings(data=_Data, length=5, filterRegex='.').Strings"}],
     ]],
 
     ["EmbeddedPE", 0, [
@@ -427,7 +433,7 @@ sources:
       -- unique function to groupby value for enumerate
       LET unique(values) = SELECT _value as value FROM foreach(row=values) GROUP BY _value
 
-      -- section to dynamically generate Xor configuration yara hunt strings
+      -- section to dynamically generate Xor configuration YARA hunt strings
       LET a &lt;= unhex(string='01')
       LET b &lt;= unhex(string='02')
       LET c &lt;= unhex(string='03')
@@ -480,7 +486,7 @@ sources:
         WHERE Name = '.data' AND Size &gt; 15
 
 
-      -- scan DataBytes for CobaltStrike config
+      -- scan DataBytes for Cobalt Strike config
       LET ByteConfiguration = SELECT Rule,
                 len(list=TargetBytes) as Size,
                 hash(path=TargetBytes,accessor='data') as Hash,
@@ -669,10 +675,10 @@ sources:
       LET position(data) = if(condition= len(list=split(string=format(format='%x',args=data),sep='ffff')) &gt; 1,
             then= split(string=format(format='%x',args=data),sep='ffff')[-1],
             else= False )
-      LET find_strings(data,length,filter) = SELECT Strings
+      LET find_strings(data,length, filterRegex) = SELECT Strings
         FROM parse_records_with_regex(file=data,accessor='data',regex='(?P&lt;Strings&gt;[ -~]+)')
         WHERE len(list=Strings) &gt; length - 1
-            AND Strings =~ filter
+            AND Strings =~ filterRegex
             AND NOT Strings =~ '^\\s+$'
         LIMIT 150
 
@@ -702,7 +708,7 @@ sources:
             OR DecodedConfig.Server =~ '^[ -~]+' -- AND DecodedConfig.TargetUri )
             OR Rule='cobalt_strike_sleepfunction' )
 
-      -- add decoded data seperate to keep pretty output
+      -- add decoded data separate to keep pretty output
       LET output_decoded_data = SELECT *,
             upload(accessor = 'data',
                 file = if(condition = Rule='cobalt_strike_beacon',

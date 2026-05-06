@@ -1,7 +1,11 @@
 ---
 title: Linux.SuSE.Packages
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Parse list of installed packages from zypper output
 ---
 
 Parse list of installed packages from zypper output

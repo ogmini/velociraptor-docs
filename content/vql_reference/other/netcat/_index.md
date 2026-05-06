@@ -2,7 +2,11 @@
 title: netcat
 index: true
 noTitle: true
+sitemap:
+   disable: true
 no_edit: true
+description: |
+  Make a tcp connection and read data from a socket.
 ---
 
 
@@ -26,7 +30,7 @@ sep|The separator that will be used to split (default - line feed)|string
 chunk_size|Read input with this chunk size (default 64kb)|int
 retry|Seconds to wait before retry - default 0 - do not retry|int
 
-<span class="permission_list vql_type">Required permissions:</span><span class="permission_list linkcolour label label-important">COLLECT_SERVER</span>
+<span class="permission_list vql_type">Required permissions:</span><span class="permission_list linkcolour label label-important">NETWORK</span>
 
 ### Description
 

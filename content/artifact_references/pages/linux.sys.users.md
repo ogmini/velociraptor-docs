@@ -1,14 +1,18 @@
 ---
 title: Linux.Sys.Users
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Get User specific information like homedir, group, etc. from `/etc/passwd`.
 ---
 
-Get User specific information like homedir, group etc from /etc/passwd.
+Get User specific information like homedir, group, etc. from `/etc/passwd`.
 
 <pre><code class="language-yaml">
 name: Linux.Sys.Users
-description: Get User specific information like homedir, group etc from /etc/passwd.
+description: Get User specific information like homedir, group, etc. from `/etc/passwd`.
 parameters:
   - name: PasswordFile
     default: /etc/passwd

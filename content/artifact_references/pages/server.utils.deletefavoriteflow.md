@@ -1,18 +1,23 @@
 ---
 title: Server.Utils.DeleteFavoriteFlow
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact allows the user to delete a previously saved
+  favorite. It will only affect the current user.
 ---
 
 This artifact allows the user to delete a previously saved
-favorite. It will only addect the current user.
+favorite. It will only affect the current user.
 
 
 <pre><code class="language-yaml">
 name: Server.Utils.DeleteFavoriteFlow
 description: |
   This artifact allows the user to delete a previously saved
-  favorite. It will only addect the current user.
+  favorite. It will only affect the current user.
 
 parameters:
   - name: Name

@@ -1,7 +1,11 @@
 ---
 title: Generic.Client.LocalLogsRetrieve
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Retrives the locally written logs.
 ---
 
 Retrives the locally written logs.

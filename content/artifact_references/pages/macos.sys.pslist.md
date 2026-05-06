@@ -1,7 +1,11 @@
 ---
 title: MacOS.Sys.Pslist
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  List processes and their running binaries.
 ---
 
 List processes and their running binaries.

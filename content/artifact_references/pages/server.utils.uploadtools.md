@@ -1,18 +1,27 @@
 ---
 title: Server.Utils.UploadTools
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  Velociraptor can use external tools to deploy binaries on the
+  endpoint for some artifacts that require it. Usually these binaries
+  are automatically downloaded by the server when required. However,
+  sometimes a server is deployed on an air-gapped network, or has
+  egress filtering implemented such that the server is unable to
+  download binaries on demand.
 ---
 
 Velociraptor can use external tools to deploy binaries on the
 endpoint for some artifacts that require it. Usually these binaries
 are automatically downloaded by the server when required. However,
-sometimes a server is deployed on an air gapped network, or has
+sometimes a server is deployed on an air-gapped network, or has
 egress filtering implemented such that the server is unable to
 download binaries on demand.
 
 In these cases it is useful to automatically pre-populate tools into
-a server manually. This artifact simplies the process.
+a server manually. This artifact simplifies the process.
 
 1. The artifact produces a curl based script that helps to download
    required binaries on an internet connect system.
@@ -31,12 +40,12 @@ description: |
   Velociraptor can use external tools to deploy binaries on the
   endpoint for some artifacts that require it. Usually these binaries
   are automatically downloaded by the server when required. However,
-  sometimes a server is deployed on an air gapped network, or has
+  sometimes a server is deployed on an air-gapped network, or has
   egress filtering implemented such that the server is unable to
   download binaries on demand.
 
   In these cases it is useful to automatically pre-populate tools into
-  a server manually. This artifact simplies the process.
+  a server manually. This artifact simplifies the process.
 
   1. The artifact produces a curl based script that helps to download
      required binaries on an internet connect system.
@@ -59,6 +68,8 @@ parameters:
 sources:
   - name: DownloaderScript
     query: |
+      // linter: symbol_mask_warn:url
+
       LET AllCurlCommands =
         SELECT format(format="curl -O -L -C - %v", args=url) AS Curl
         FROM inventory()

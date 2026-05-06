@@ -1,7 +1,13 @@
 ---
 title: Server.Utils.CancelHunt
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  Sometimes a hunt is issued which is no longer useful. While stopping
+  the hunt from the GUI prevents new clients from receiving the hunt,
+  it does not actively cancel collections currently in flight.
 ---
 
 Sometimes a hunt is issued which is no longer useful. While stopping
@@ -26,22 +32,30 @@ type: SERVER
 
 parameters:
   - name: HuntId
+  - name: Hunts
+    type: json_array
+    description: A list of hunts to cancel
+    default: '[]'
 
 sources:
   - query: |
-      LET all_flows = SELECT Flow.client_id AS client_id, Flow.session_id AS flow_id
+      LET all_flows(HuntId) = SELECT Flow.client_id AS client_id, Flow.session_id AS flow_id
       FROM hunt_flows(hunt_id=HuntId)
       WHERE NOT Flow.state =~ "ERROR|FINISHED"
 
-      LET cancellations = SELECT client_id, flow_id,
+      LET cancellations(HuntId) = SELECT HuntId, client_id, flow_id,
              cancel_flow(client_id=client_id, flow_id=flow_id) AS Cancellation
-      FROM all_flows
+      FROM all_flows(HuntId=HuntId)
 
-      SELECT * FROM if(condition=HuntId, then=cancellations,
-      else={
-         SELECT * FROM scope()
-         WHERE log(message="Hunt ID must be specified.") AND NULL
-      })
+      LET AllHunts &lt;= if(condition=HuntId, then=Hunts + HuntId, else=Hunts)
+
+      SELECT * FROM foreach(row={
+        SELECT _value AS HuntId
+        FROM items(item=AllHunts)
+      }, query={
+        SELECT * FROM cancellations(HuntId=HuntId)
+      }, workers=50
+      )
 
 </code></pre>
 

@@ -1,7 +1,13 @@
 ---
 title: Elastic.Events.Clients
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Event Artifact]
+description: |
+  This server monitoring artifact will watch a selection of client or
+  server monitoring artifacts for new events and push those to an
+  elastic index.
 ---
 
 This server monitoring artifact will watch a selection of client or

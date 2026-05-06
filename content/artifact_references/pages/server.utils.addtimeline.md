@@ -1,7 +1,11 @@
 ---
 title: Server.Utils.AddTimeline
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  Adds a new timeline to a super timeline.
 ---
 
 Adds a new timeline to a super timeline.

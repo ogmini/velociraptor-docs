@@ -6,13 +6,17 @@ weight: 50
 date: 2025-02-27
 last reviewed: 2025-04-27
 summary: "How to upgrade your server."
+description: |
+  Upgrading the server component is usually a simple matter of creating a new
+  server installation package using the latest version and your existing
+  configuration file, and then applying it to your server.
 ---
 
 Upgrading the server component is usually a simple matter of creating a new
 server installation package using the latest version and your existing
 configuration file, and then applying it to your server.
 
-{{% notice note "Backing up your configuration file" %}}
+{{% notice tip "Backing up your configuration file" %}}
 
 The configuration file contains cryptographic keys that allow clients
 and server to communicate. Each time the configuration is regenerated
@@ -38,10 +42,26 @@ into the server package so you will receive an upgraded configuration file
 installed to the `/etc/` directory. You can see the version that wrote the
 configuration file in the `version` section of the configuration file.
 
+{{% notice note "Client-Server Backward Compatibility" %}}
+
+The Velociraptor server is intended to be
+[backwardly-compatible with older clients](/docs/overview/support/#client-and-server-versioning)
+across the previous few releases, which allows you to upgrade the server and
+then upgrade the clients. This backward-compatibility is mainly in terms of
+client-server communication - that is, older clients should be able to continue
+communicating with a newer server version. However, older clients will not be
+able to run artifacts that use newer features and functionality, so ideally you
+should try to upgrade your clients to the same version as the server as soon as
+possible after upgrading the server.
+
+Note that you should always upgrade the server first.
+
+{{% /notice %}}
+
 ## Upgrading a server (in-place upgrade)
 
 To upgrade the Velociraptor server to a new version, first download the
-[latest release binary]({{< ref "/downloads/" >}}),
+[latest release binary](/downloads/),
 appropriate for your server's architecture.
 
 ### Create a new server installation package
@@ -129,19 +149,45 @@ the Velociraptor binary.
 
 ## Migrating clients to a new server
 
-If you wanted to completely change the way the server is configured by
-regenerating the config file (for example, if you need to switch from self-
-signed to Let's Encrypt certificates) you may need to stand up a completely new
-server (with a different DNS name, certificates, keys etc) and migrate existing
+If you wanted to completely change the way the server is configured, for example
+if you need to switch from self- signed to Let's Encrypt certificates, you can
+stand up a completely new server (with a different DNS name, certificates, keys
+etc.) and then migrate existing clients to it. Of course there are many other
+reasons why you might want to start with a new server and migrate existing
 clients to it.
 
 This method allows the orderly migration of Velociraptor clients from
 an old server to a new server by using a remote client upgrade.
 
-You can use the old server to push the new MSI to existing clients, but as the
-new MSI is installed the new client config file overwrites the old one and the
-new velociraptor client will then connect to the new server and enroll as a new
-client (with a new client ID).
+1. Set up the new server. Ideally using the same server version as the old
+   server. Preferably also deploy a few clients just to test that they can
+   connect and be managed before you start migrating existing clients to it.
+
+2. (Optional) On the new server you may want the same labels, hunts, global
+   notebooks, etc. as on the old server. You can restore the latest daily backup
+   from the old server to preserve various server configuration items, as
+   described in
+   [Restoring from daily backups](/knowledge_base/tips/backing_up/#restoring-from-daily-backups).
+
+3. Export the appropriate client config from the new server. Copy it to the old
+   server. Use the `Server.Utils.CreateMSI` or
+   `Server.Utils.CreateLinuxPackages` artifacts to create installer packages for
+   your target platforms. Use the client config from the new server in the
+   artifact parameter `CustomConfig` so that installer packages will contain the
+   config pointing the clients to the new server.
+
+4. Use the old server to push the new installer packages to existing clients
+   using the `Admin.Client.Upgrade.<platform>` artifact in a hunt. Alternatively
+   you could use an external package management solution to deploy the new
+   installer packages.
+
+   The "upgrade" will replace the old client config with the new one. These
+   clients will then connect to the new server. If you've use the same writeback
+   file location in both the old and new configs then the clients will re-enroll
+   using their existing client ID (which is stored in the writeback file).
+
+As always, you should test the process on a limited scale before applying it to
+all your clients.
 
 
 

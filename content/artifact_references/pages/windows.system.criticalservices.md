@@ -1,7 +1,12 @@
 ---
 title: Windows.System.CriticalServices
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact returns information about any services which are
+  considered critical.
 ---
 
 This artifact returns information about any services which are

@@ -1,12 +1,17 @@
 ---
 title: Windows.Remediation.ScheduledTasks
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Remove malicious task from the Windows scheduled task list.
 ---
 
 Remove malicious task from the Windows scheduled task list.
 
-Danger: You need to make sure to test this before running.
+WARNING: Removing scheduled tasks is potentially dangerous! You need to test
+this thoroughly before deploying this artifact widely to clients.
 
 
 <pre><code class="language-yaml">
@@ -14,7 +19,8 @@ name: Windows.Remediation.ScheduledTasks
 description: |
    Remove malicious task from the Windows scheduled task list.
 
-   Danger: You need to make sure to test this before running.
+   WARNING: Removing scheduled tasks is potentially dangerous! You need to test
+   this thoroughly before deploying this artifact widely to clients.
 
 type: CLIENT
 
@@ -64,7 +70,7 @@ sources:
             XML as _XML
       FROM foreach(row=task_paths, query=parse_task)
       WHERE (Arguments =~ ArgumentRegex AND Command =~ CommandRegEx)  AND
-      log(message="Removing task " + Name)
+      log(message="Removing task %v", args=Name)
 
       SELECT * FROM foreach(row=tasks,
         query={

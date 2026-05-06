@@ -2,7 +2,11 @@
 title: panic
 index: true
 noTitle: true
+sitemap:
+   disable: true
 no_edit: true
+description: |
+  Crash the program with a panic!
 ---
 
 

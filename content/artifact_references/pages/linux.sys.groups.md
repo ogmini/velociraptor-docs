@@ -1,7 +1,11 @@
 ---
 title: Linux.Sys.Groups
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Get system group IDs, names and memberships from /etc/group
 ---
 
 Get system group IDs, names and memberships from /etc/group

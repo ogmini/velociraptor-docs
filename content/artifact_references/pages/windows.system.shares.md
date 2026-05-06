@@ -1,7 +1,11 @@
 ---
 title: Windows.System.Shares
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact will extract network shares per machine.
 ---
 
 This artifact will extract network shares per machine.

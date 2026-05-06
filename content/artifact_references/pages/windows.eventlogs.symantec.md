@@ -1,7 +1,13 @@
 ---
 title: Windows.EventLogs.Symantec
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Query the Symantec Endpoint Protection Event Logs. The default artifact will
+  return EventId 51 and high value strings with goals bubble up some events for
+  triage.
 ---
 
 Query the Symantec Endpoint Protection Event Logs. The default artifact will

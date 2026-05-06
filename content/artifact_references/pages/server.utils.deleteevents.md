@@ -1,13 +1,18 @@
 ---
 title: Server.Utils.DeleteEvents
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  This artifact permanently deletes Event files for client or
+  monitoring events.
 ---
 
 This artifact permanently deletes Event files for client or
 monitoring events.
 
-NOTE: This action can not be undone! The event files are deleted
+NOTE: This action cannot be undone! The event files are deleted
 permanently. Since this is a sensitive operation, typically only
 users with the administrator role can run it.
 
@@ -18,7 +23,7 @@ description: |
   This artifact permanently deletes Event files for client or
   monitoring events.
 
-  NOTE: This action can not be undone! The event files are deleted
+  NOTE: This action cannot be undone! The event files are deleted
   permanently. Since this is a sensitive operation, typically only
   users with the administrator role can run it.
 

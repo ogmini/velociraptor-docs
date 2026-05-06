@@ -1,7 +1,12 @@
 ---
 title: Server.Utils.ListUsers
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  This server artifact is used to list all current users and their
+  permissions and org access.
 ---
 
 This server artifact is used to list all current users and their

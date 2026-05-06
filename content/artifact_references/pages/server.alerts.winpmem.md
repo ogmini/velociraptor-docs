@@ -1,7 +1,12 @@
 ---
 title: Server.Alerts.WinPmem
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Event Artifact]
+description: |
+  Send an email if the pmem service has been installed on any of the
+  endpoints.
 ---
 
 Send an email if the pmem service has been installed on any of the

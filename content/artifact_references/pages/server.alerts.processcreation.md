@@ -1,7 +1,11 @@
 ---
 title: Server.Alerts.ProcessCreation
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Event Artifact]
+description: |
+  This artifact alerts when a process was detected with the artifact 'Windows.Detection.ProcessCreation' (which is a client_event artifact that needs to be enabled first).
 ---
 
 This artifact alerts when a process was detected with the artifact 'Windows.Detection.ProcessCreation' (which is a client_event artifact that needs to be enabled first).

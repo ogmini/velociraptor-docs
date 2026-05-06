@@ -1,7 +1,11 @@
 ---
 title: Windows.Packs.Persistence
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact pack collects various persistence mechanisms in Windows.
 ---
 
 This artifact pack collects various persistence mechanisms in Windows.

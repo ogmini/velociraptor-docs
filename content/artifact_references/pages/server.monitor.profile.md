@@ -1,7 +1,13 @@
 ---
 title: Server.Monitor.Profile
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  This artifact collects profiling information from the running
+  server. This is useful when you notice a high CPU load in the server
+  and want to know why.
 ---
 
 This artifact collects profiling information from the running
@@ -20,7 +26,7 @@ The following options are most useful:
 
 3. Profile: This takes a CPU profile of the running process for the
    number of seconds specified in the Duration parameter. You can
-   read profiles using:
+   read profiles by using:
 
 ```
 go tool pprof -callgrind -output=profile.grind profile.bin
@@ -51,7 +57,7 @@ description: |
 
   3. Profile: This takes a CPU profile of the running process for the
      number of seconds specified in the Duration parameter. You can
-     read profiles using:
+     read profiles by using:
 
   ```
   go tool pprof -callgrind -output=profile.grind profile.bin
@@ -117,7 +123,6 @@ sources:
              get(member="Line") AS Line
       FROM profile(allocs=Allocs, block=Block, goroutine=Goroutine,
                    heap=Heap, mutex=Mutex, profile=Profile, trace=Trace,
-                   logs=Logs, queries=QueryLogs, metrics=Metrics,
                    debug=if(condition=Verbose, then=2, else=1),
                    duration=atoi(string=Duration))
 

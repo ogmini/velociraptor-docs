@@ -1,7 +1,12 @@
 ---
 title: Server.Internal.Interrogate
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Event Artifact]
+description: |
+  An internal artifact used track new client interrogations by the
+  Interrogation service.
 ---
 
 An internal artifact used track new client interrogations by the

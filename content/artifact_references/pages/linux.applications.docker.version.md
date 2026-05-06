@@ -1,7 +1,11 @@
 ---
 title: Linux.Applications.Docker.Version
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Get Dockers version by connecting to its socket.
 ---
 
 Get Dockers version by connecting to its socket.
@@ -9,11 +13,16 @@ Get Dockers version by connecting to its socket.
 <pre><code class="language-yaml">
 name: Linux.Applications.Docker.Version
 description: Get Dockers version by connecting to its socket.
+
 parameters:
   - name: dockerSocket
     description: |
       Docker server socket. You will normally need to be root to connect.
     default: /var/run/docker.sock
+
+implied_permissions:
+- NETWORK
+
 sources:
   - precondition: |
       SELECT OS From info() where OS = 'linux'

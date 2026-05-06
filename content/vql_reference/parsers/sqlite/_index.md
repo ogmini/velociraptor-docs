@@ -2,7 +2,11 @@
 title: sqlite
 index: true
 noTitle: true
+sitemap:
+   disable: true
 no_edit: true
+description: |
+  Opens an SQLite file and run a query against it.
 ---
 
 
@@ -23,8 +27,4 @@ file||OSPath (required)
 accessor|The accessor to use.|string
 query||string (required)
 args||Any
-
-### Description
-
-Opens an SQLite file and run a query against it.
 

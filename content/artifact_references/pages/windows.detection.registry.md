@@ -1,7 +1,11 @@
 ---
 title: Windows.Detection.Registry
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Event Artifact]
+description: |
+  This artifact detects registry changes and triggers an alert.
 ---
 
 This artifact detects registry changes and triggers an alert.
@@ -30,7 +34,7 @@ parameters:
     default: .
   - name: AlertName
     default: "T1112 - Suspicious registry key modification"
-  - name: diff
+  - name: DiffSense
     default: added
   - name: CertificateInfo
     default: N
@@ -61,7 +65,7 @@ sources:
 
         LET query_diff = SELECT *, commandline_split(command=Datavalue) as AbsolutePath
               FROM diff(query=query_registry, period=Period, key="FullPath")
-              WHERE Diff = diff
+              WHERE Diff = DiffSense
 
         SELECT *,
             alert(name=AlertName, Key=OSPath, Value=Datavalue, RegistryValue=Diff) as AlertSent,
@@ -70,7 +74,7 @@ sources:
             if(condition=CertificateInfo,
                 then=authenticode(filename=AbsolutePath[0])) AS Certinfo
         FROM query_diff
-        WHERE Diff = diff
+        WHERE Diff = DiffSense
               AND Hash.SHA256 =~ regex_sha256
               AND Certinfo.IssuerName=~regex_IssuerName
               AND NOT if(condition= UntrustedAuthenticode,

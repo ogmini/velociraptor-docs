@@ -1,7 +1,12 @@
 ---
 title: Generic.Applications.Chrome.SessionStorage
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Session storage allows a web site to store permanent data in the
+  user's browser.
 ---
 
 Session storage allows a web site to store permanent data in the

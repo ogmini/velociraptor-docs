@@ -1,7 +1,12 @@
 ---
 title: Windows.ETW.WMIProcessCreate
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Event Artifact]
+description: |
+  This artifact the endpoints for process creation through WMI
+  events. This is a common attacker lateral movement technique.
 ---
 
 This artifact the endpoints for process creation through WMI
@@ -10,7 +15,7 @@ events. This is a common attacker lateral movement technique.
 The technique works by calling the Create() method on the
 win32_process WMI object.
 
-You can test this with powershell:
+You can test this with PowerShell:
 Invoke-WmiMethod -Path win32_process -Name create -ArgumentList notepad.exe
 
 This artifact uses the EWT provider:
@@ -26,7 +31,7 @@ description: |
   The technique works by calling the Create() method on the
   win32_process WMI object.
 
-  You can test this with powershell:
+  You can test this with PowerShell:
   Invoke-WmiMethod -Path win32_process -Name create -ArgumentList notepad.exe
 
   This artifact uses the EWT provider:

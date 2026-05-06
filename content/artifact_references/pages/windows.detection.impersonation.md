@@ -1,7 +1,16 @@
 ---
 title: Windows.Detection.Impersonation
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  An access token is an object that describes the security context of
+  a process or thread. The information in a token includes the
+  identity and privileges of the user account associated with the
+  process or thread. When a user logs on, the system verifies the
+  user's password by comparing it with information stored in a
+  security database.
 ---
 
 An access token is an object that describes the security context of
@@ -20,9 +29,9 @@ interact with securable objects using the client's security
 context. A thread that is impersonating a client has both a primary
 token and an impersonation token.
 
-This artfiact enumerates all threads on the system which have an
-impersonation token. I.e. they are operating with a different token
-then the token the entire process has. For example mimikatz has a
+This artifact enumerates all threads on the system which have an
+impersonation token. That is, they are operating with a different token
+then the token the entire process has. For example Mimikatz has a
 command called `token::elevate` to do just such a thing:
 
 ```
@@ -60,9 +69,9 @@ description: |
   context. A thread that is impersonating a client has both a primary
   token and an impersonation token.
 
-  This artfiact enumerates all threads on the system which have an
-  impersonation token. I.e. they are operating with a different token
-  then the token the entire process has. For example mimikatz has a
+  This artifact enumerates all threads on the system which have an
+  impersonation token. That is, they are operating with a different token
+  then the token the entire process has. For example Mimikatz has a
   command called `token::elevate` to do just such a thing:
 
   ```

@@ -2,9 +2,10 @@
 
 The offline collector is a pre-configured version of Velociraptor that
 automatically collects certain artifacts when invoked with no command line args.
+
 The offline collector is a full Velociraptor binary that simply has a custom
-configuration embedded - so you can use the collector binary to perform any
-operations that Velociraptor would.
+configuration embedded. So you can still use the collector binary to perform any
+operations that an unmodified Velociraptor binary is capable of.
 
 Usually the collector is built using the GUI by selecting the correct artifacts
 and injecting parameters into the embedded configuration file. But sometimes we
@@ -15,6 +16,12 @@ Here we describe an easy way to quickly modify the embedded configuration, which
 is suitable for small changes in the embedded configuration. While it is
 recommended that you use the GUI to prepare a completely new collector, for
 small tweaks to an existing offline collector this method may be quicker.
+
+Also note that you can override or append command line arguments to those
+embedded in and offline collector using
+[post-args](/docs/cli/#autoexec-mode-and-post-args),
+which may be sufficient when you want to change the collector behaviour on a
+once-off basis.
 
 ## General Method
 
@@ -88,7 +95,7 @@ or
 
 ## Repacking a Generic Collector
 
-The [Generic Collector](https://docs.velociraptor.app/docs/offline_triage/#the-generic-offline-collector)
+The [Generic Collector](https://docs.velociraptor.app/docs/deployment/offline_collections/#the-generic-collector)
 is independent of any binary. It's essentially a standalone collector config
 with compression applied. This allows it to be used with any Velociraptor binary
 since it is external to the binary.
@@ -107,7 +114,7 @@ velociraptor config show --embedded_config Collector_velociraptor-collector > Co
 3. And then repack it back into the Generic Collector format using the `--exe`
 flag. In this case the "exe" can be any generic collector file including the
 default "blank" one available on our
-[Github Releases page](https://github.com/Velocidex/velociraptor/releases)
+[GitHub Releases page](https://github.com/Velocidex/velociraptor/releases)
 (named `velociraptor-collector`).
 
 ```sh

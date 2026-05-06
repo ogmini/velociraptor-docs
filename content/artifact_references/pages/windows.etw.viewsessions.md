@@ -1,7 +1,11 @@
 ---
 title: Windows.ETW.ViewSessions
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact enumerates all ETW sessions and optionally kills dangling ones
 ---
 
 This artifact enumerates all ETW sessions and optionally kills dangling ones

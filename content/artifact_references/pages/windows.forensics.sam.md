@@ -1,7 +1,11 @@
 ---
 title: Windows.Forensics.SAM
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Parses user account information from the SAM hive.
 ---
 
 Parses user account information from the SAM hive.

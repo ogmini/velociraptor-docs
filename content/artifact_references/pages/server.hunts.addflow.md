@@ -1,10 +1,14 @@
 ---
 title: Server.Hunts.AddFlow
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  This artifact adds an existing flow to a running hunt.
 ---
 
-This artifact adds an exisiting flow to a running hunt.
+This artifact adds an existing flow to a running hunt.
 
 This helps in the case where the original flow in the hunt timed
 out. The user then can re-run the hunt manually possibly increasing
@@ -15,7 +19,7 @@ the UI to add the flow to an existing time.
 <pre><code class="language-yaml">
 name: Server.Hunts.AddFlow
 description: |
-  This artifact adds an exisiting flow to a running hunt.
+  This artifact adds an existing flow to a running hunt.
 
   This helps in the case where the original flow in the hunt timed
   out. The user then can re-run the hunt manually possibly increasing

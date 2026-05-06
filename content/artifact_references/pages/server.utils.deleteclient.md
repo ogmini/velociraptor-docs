@@ -1,14 +1,18 @@
 ---
 title: Server.Utils.DeleteClient
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  This artifact completely removes a client from the data store.
 ---
 
 This artifact completely removes a client from the data store.
 
 Be careful with this one: there is no way to recover old
 data. However, if the client still exists, it will just
-automatically re-enrol when it next connects. You will still be able
+automatically re-enroll when it next connects. You will still be able
 to talk to it, it is just that old collected data is deleted.
 
 
@@ -19,7 +23,7 @@ description: |
 
   Be careful with this one: there is no way to recover old
   data. However, if the client still exists, it will just
-  automatically re-enrol when it next connects. You will still be able
+  automatically re-enroll when it next connects. You will still be able
   to talk to it, it is just that old collected data is deleted.
 
 type: SERVER

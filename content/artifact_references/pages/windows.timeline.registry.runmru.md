@@ -1,7 +1,11 @@
 ---
 title: Windows.Timeline.Registry.RunMRU
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  # Output all available RunMRU registry keys in timeline format.
 ---
 
 # Output all available RunMRU registry keys in timeline format.
@@ -12,12 +16,12 @@ Entries will be logged in the user hive under:    Software\Microsoft\Windows\Cur
 The artifact numbers all entries with the most recent at
 reg_mtime starting at 0. Second recent 1, Third recent 2 etc.
 
-Default output enables a line per MRU entry.
-A tickbox enables Grouped results with order in a single line.
+Default output enables a line per MRU entry. The boolean parameter
+`groupResults` enables Grouped results with ordering.
 
-Note: This artifact will collect RunMRU from ntuser.dat files and
+Note: This artifact will collect RunMRU from `ntuser.dat` files and
 may exclude very recent entries in transaction (HKCU).  Future
-versions of this content will address this gap.
+versions of this content might address this gap.
 
 
 <pre><code class="language-yaml">
@@ -31,12 +35,12 @@ description: |
     The artifact numbers all entries with the most recent at
     reg_mtime starting at 0. Second recent 1, Third recent 2 etc.
 
-    Default output enables a line per MRU entry.
-    A tickbox enables Grouped results with order in a single line.
+    Default output enables a line per MRU entry. The boolean parameter
+    `groupResults` enables Grouped results with ordering.
 
-    Note: This artifact will collect RunMRU from ntuser.dat files and
+    Note: This artifact will collect RunMRU from `ntuser.dat` files and
     may exclude very recent entries in transaction (HKCU).  Future
-    versions of this content will address this gap.
+    versions of this content might address this gap.
 
 author: Matt Green - @mgreen27
 
@@ -64,6 +68,8 @@ parameters:
 
 sources:
  - query: |
+        // linter: symbol_mask_warn:source|user
+
         LET hostname_lu &lt;= SELECT Fqdn FROM info()
         LET HKEY_USERS &lt;= pathspec(parse="HKEY_USERS", path_type="registry")
 

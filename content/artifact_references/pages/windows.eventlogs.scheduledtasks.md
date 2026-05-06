@@ -1,7 +1,12 @@
 ---
 title: Windows.EventLogs.ScheduledTasks
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact will extract Event Logs related to ScheduledTasks and provide
+  a nice format for simplified review.
 ---
 
 This artifact will extract Event Logs related to ScheduledTasks and provide

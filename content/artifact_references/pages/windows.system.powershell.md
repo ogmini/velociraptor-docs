@@ -1,11 +1,16 @@
 ---
 title: Windows.System.PowerShell
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact allows running arbitrary commands through the system
+  PowerShell.
 ---
 
 This artifact allows running arbitrary commands through the system
-powershell.
+PowerShell.
 
 Since Velociraptor typically runs as system, the commands will also
 run as System.
@@ -37,7 +42,7 @@ spaces in it:
 name: Windows.System.PowerShell
 description: |
   This artifact allows running arbitrary commands through the system
-  powershell.
+  PowerShell.
 
   Since Velociraptor typically runs as system, the commands will also
   run as System.
@@ -90,7 +95,8 @@ sources:
              if(condition=len(list=Stderr) &gt;= SizeLimit,
                 then=upload(accessor="data",
                             file=Stderr,
-                            name="Stderr" + str(str=count()))) AS StderrUpload
+                            name="Stderr" + str(str=count()))) AS StderrUpload,
+             *
       FROM execve(argv=[PowerShellExe,
         "-ExecutionPolicy", "Unrestricted", "-encodedCommand",
         base64encode(string=utf16_encode(string=Command))

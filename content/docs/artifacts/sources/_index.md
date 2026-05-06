@@ -6,6 +6,8 @@ draft: false
 weight: 30
 summary: "Sources describe how the artifact produces data"
 last_reviewed: 2025-06-13
+description: |
+  Sources describe how the artifact produces data.
 ---
 
 Sources describe how the artifact produces data.
@@ -29,7 +31,7 @@ mode" as each request is independent and runs in parallel.
 
 The execution mode for non-event artifacts is determined by the presence of
 source-level preconditions, and is explained in greater detail
-[here]({{< ref "/docs/artifacts/preconditions/#serial-vs-parallel-execution" >}}).
+[here](/docs/artifacts/preconditions/#serial-vs-parallel-execution).
 
 The most important distinction from the artifacts writer's point of view is that
 serial mode reuses the scope between sources, while parallel mode uses a new

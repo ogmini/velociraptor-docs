@@ -1,7 +1,11 @@
 ---
 title: Windows.ETW.KernelFile
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Event Artifact]
+description: |
+  This artifact follows the Microsoft-Windows-Kernel-File provider.
 ---
 
 This artifact follows the Microsoft-Windows-Kernel-File provider.
@@ -61,6 +65,7 @@ sources:
            description="Microsoft-Windows-Kernel-File", any=Keyword)
 
       SELECT System.ID AS EID,
+         System AS _System,
          get(item=EIDLookup, field=str(str=System.ID)) AS EventType,
          process_tracker_get(id=System.ProcessID).Data AS ProcInfo,
          process_tracker_callchain(id=System.ProcessID).Data.Exe AS CallChain,

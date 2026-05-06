@@ -1,7 +1,13 @@
 ---
 title: Windows.Remediation.Sinkhole
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  **Apply a Sinkhole via Windows hosts file modification**
+  This content will modify the Windows hosts file by a configurable
+  lookup table.
 ---
 
 **Apply a Sinkhole via Windows hosts file modification**
@@ -85,10 +91,10 @@ sources:
 
       -- Check for backup to determine if sinkhole applied
       LET check_backup = SELECT OSPath FROM stat(filename=HostsFileBackup)
-      WHERE log(message="Found backup at " + OSPath)
+      WHERE log(message="Found backup at %v", args=OSPath)
 
       -- Backup old config
-      LET backup = copy(filename=HostsFile,dest=HostsFileBackup)
+      LET Backup = copy(filename=HostsFile, dest=HostsFileBackup)
 
       -- Restore old config
       LET restore = SELECT * FROM chain(
@@ -202,7 +208,7 @@ sources:
                  a= log(message='Backup hosts file already exists.'),
                  b= restore)
               },
-          else= backup)
+          else= Backup)
         )
 
       -- Do kick off logic

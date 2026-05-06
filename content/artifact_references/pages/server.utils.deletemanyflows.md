@@ -1,7 +1,12 @@
 ---
 title: Server.Utils.DeleteManyFlows
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  Sometimes the Velociraptor server accumulates a lot of data that is
+  no longer needed.
 ---
 
 Sometimes the Velociraptor server accumulates a lot of data that is
@@ -12,7 +17,7 @@ them against some criteria. Flows that match are then removed.
 
 **NOTE** This artifact will destroy all data irrevocably. Take
   care! You should always do a dry run first to see which flows
-  will match before using the ReallyDoIt option.
+  will match before using the `ReallyDoIt` option.
 
 
 <pre><code class="language-yaml">
@@ -26,7 +31,7 @@ description: |
 
    **NOTE** This artifact will destroy all data irrevocably. Take
      care! You should always do a dry run first to see which flows
-     will match before using the ReallyDoIt option.
+     will match before using the `ReallyDoIt` option.
 
 type: SERVER
 

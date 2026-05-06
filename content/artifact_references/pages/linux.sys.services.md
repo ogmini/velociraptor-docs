@@ -1,7 +1,11 @@
 ---
 title: Linux.Sys.Services
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Parse services from systemctl
 ---
 
 Parse services from systemctl

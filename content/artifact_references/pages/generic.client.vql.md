@@ -1,7 +1,11 @@
 ---
 title: Generic.Client.VQL
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Run arbitrary VQL on the endpoint.
 ---
 
 Run arbitrary VQL on the endpoint.

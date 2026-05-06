@@ -5,83 +5,91 @@ draft: false
 weight: 25
 no_children: true
 pre: <i class="fas fa-download"></i>
-release: 0.74.5
-base_release: 0.74
+release: 0.76.5
+base_release: 0.76
 arches:
   - desc: Windows AMD64 (64-bit) Executable
     name: windows-amd64.exe
-    hash: f39d1164fba6a6aeb9759f98bcb6424a96cd6b06833d66714e1be3fc249cd544
+    hash: 4813e753f6f9bfa5c5de0edbb8dd3cc7f1fa51714097d3144d44e5e89dbd33ef
     platform: windows
 
   - desc: Windows AMD64 (64-bit) MSI
     name: windows-amd64.msi
-    hash: 4d8708501edabeab1c30c481b07138f8d06d18610491f100f4e268069b397376
+    hash: a35a220a58360bbe501b5f9cb4ccf4eda188c6e68e770bf0a79bea75d3b2b899
     platform: windows
 
   - desc: Windows 32-bit Executable
     name: windows-386.exe
-    hash: 6ab6f29f459a8eb180b5bc81a8f7711c696599d5068fb09e594e88d20151c452
+    hash: 402e7968257bb8b3d85864517c452dde04d0c997ddfdbf161908bc377987521b
     platform: windows
 
   - desc: Windows 32-bit MSI
     name: windows-386.msi
-    hash: 05a3199f5bd721762e79c1436f4b806ca65a4d8350f0e9d710c5099315b3a776
+    hash: fe407135b9f0e7fa149533b42119814afdb036b3489f26637ba6243841c68aff
     platform: windows
 
   - desc: Linux Ubuntu 22.04 AMD64 and later. Recommended for servers.
     name: linux-amd64
-    hash: 710be6656b5668ff2bac551b80acee4958383aa5cfd8c9f7b895aa32046d9e35
+    hash: e6b2b379c90aaddf549a200dea108fe34e397994d45d2fc3b68f53b2f5277b51
     platform: linux
 
   - desc: Linux Ubuntu 22.04 ARM and later. Recommended for servers or containers.
     name: linux-arm64
-    hash: bd18b915b16f3db7778065208aecde522438c00970620c3bf5fb45860a506798
+    hash: 5e38969f199823535f1bd8611e1ab95e45c2cc4a4522d0c2a68474cdbe098214
     platform: linux
 
   - desc: Linux Static Build (Older Releases, e.g. RHEL, Centos) Recommended for clients.
     name: linux-amd64-musl
-    hash: f2416a0dface7cbbd7194b50639141e185961b9c4199d81d66e4cda4151691de
+    hash: e7e43975f4855e03aba0e7d9ef2a8ed32c58112718074ddcf3535bebf90e1f2f
+    platform: linux
+
+  - desc: Linux Sumo build. Recommended for servers.
+    name: linux-amd64-sumo-musl
+    hash: 8b2d1e8cd74ea58a56ce0ed0c052c2e66ad45980f0b35bab6afe566363cae745
     platform: linux
 
   - desc: MacOS AMD64
     name: darwin-amd64
-    hash: a63ea7927c31a760f0307844362a27f812a3354a084e724441e50bebab23ff80
+    hash:
     platform: apple
 
   - desc: MacOS ARM (M1, M2 chipsets)
     name: darwin-arm64
-    hash: 4e15e9f63bce88628df3720747945b9f7d097d1fccde9558a4c3d985221df8e5
+    hash:
     platform: apple
 
   - desc: FreeBSD AMD64
     name: freebsd-amd64
-    hash: 7a7a0109d300b385a6b3de06f60d38ddcc1dce80a2b0e0a8d36cc85b843d23e0
+    hash: ebc5722094eea312873cc725c214715da541a71a46a13ce0acb80db0a015a411
     platform: freebsd
-    release: 0.74.1
+    release: 0.76.1
 
   - desc: Windows AMD64 (64 bits) Executable For Windows 7 Only
     name: windows-amd64-legacy.exe
-    hash: 51a58e048c1dae45efe02a9a088f856a7b63ed9ea47776678b1c5bb5f6f6fc72
+    hash: a15f8b9bdfcf1fe5b4e73eafcb9c3091eb347b9c7f32ae7e94ab5de41c8c434e
     platform: windows
+    release: 0.76.1
 
   - desc: Windows 32 bits Executable For Windows 7 Only
     name: windows-386-legacy.exe
-    hash: 2c6acdbab4c1914de72ec4d8f5e9f57d328405fa3192cd3bc11c08a96ddba99e
+    hash: 3a66986c3a4a9e0d4dacd3131ee55d65ff37b0093373048cb05afa1572a800c6
     platform: windows
-
-
+    release: 0.76.1
+description: |
+  Velociraptor is open source software and is free for anyone to use under the
+  [AGPL License](https://github.com/Velocidex/velociraptor?tab=License-1-ov-file#readme).
 ---
 
 Velociraptor is open source software and is free for anyone to use under the
 [AGPL License](https://github.com/Velocidex/velociraptor?tab=License-1-ov-file#readme).
 
-This page is for the current release. [The previous Release is 0.73.4]({{< ref "/downloads/previous_downloads" >}})
+This page is for the current release. [The previous Release is 0.75.7](/downloads/previous_downloads/)
 
 {{< release_download >}}
 
 ## Release notes
 
-Full release notes are published in our [release blog post]({{< ref "/blog/2025/2025-02-23-release-notes-0.74/" >}})
+Full release notes are published in our [release blog post](/blog/2026/2026-03-10-release-notes-0.76/)
 
 {{% notice note "Support for Windows 7" %}}
 
@@ -105,7 +113,7 @@ However, note the following caveats:
   updated. These builds may miss some specific functionality.
 
 * If you need to use these builds for an offline collector we
-  recommend using [the generic collector]({{< ref "/docs/offline_triage/#the-generic-offline-collector" >}}).
+  recommend using [the generic collector](/docs/deployment/offline_collections/#the-generic-collector).
 
 
 **Do not use this build in a general deployment!** Only use it for

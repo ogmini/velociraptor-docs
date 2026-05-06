@@ -1,7 +1,13 @@
 ---
 title: LogScale.Flows.Upload
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Event Artifact]
+description: |
+  This server side event monitoring artifact waits for new artifacts
+  to be collected from endpoints and automatically posts those to a
+  LogScale (formerly Humio) ingestion endpoint.
 ---
 
 This server side event monitoring artifact waits for new artifacts

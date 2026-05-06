@@ -1,7 +1,11 @@
 ---
 title: Admin.Client.Uninstall
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Uninstall Velociraptor from the endpoint.
 ---
 
 Uninstall Velociraptor from the endpoint.
@@ -59,7 +63,8 @@ sources:
           argv=commandline_split(command=UninstallString) + "/quiet")
 
       SELECT KeyName, DisplayName, UninstallString,
-          if(condition=ReallyDoIt, then=uninstall(Name=UninstallString).Stdout) AS UninstallLog
+          if(condition=ReallyDoIt,
+             then=uninstall(UninstallString=UninstallString).Stdout) AS UninstallLog
       FROM packages
 
   - name: Debian
@@ -89,7 +94,13 @@ sources:
     query:  |
       SELECT * FROM if(condition=ReallyDoIt,
       then={
-        SELECT * FROM execve(argv=["rpm", "--erase", "velociraptor-client"])
+        SELECT * FROM switch(a={
+           SELECT * FROM execve(argv=["rpm", "--erase", "velociraptor-client"])
+           WHERE ReturnCode = 0
+        }, b={
+           // Support older clients which named the package in this way.
+           SELECT * FROM execve(argv=["rpm", "--erase", "velociraptor_client"])
+        })
       })
 
   - name: MacOS

@@ -1,7 +1,12 @@
 ---
 title: Windows.Forensics.RecentApps
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  GUI Program execution launched on the Win10 system is tracked in the
+  RecentApps key.
 ---
 
 GUI Program execution launched on the Win10 system is tracked in the

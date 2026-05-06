@@ -1,16 +1,24 @@
 ---
 title: Windows.Detection.ForwardedImports
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  In Windows a common DLL hooking technique is to replace a dll with a
+  forwarder dll - i.e. one that forwards all imports to the real
+  dll. If the forwarder DLL is placed earlier in the import order, the
+  malicious DLL will be seamlessly loaded and injected into another
+  process.
 ---
 
 In Windows a common DLL hooking technique is to replace a dll with a
 forwarder dll - i.e. one that forwards all imports to the real
 dll. If the forwarder DLL is placed earlier in the import order, the
-malicous DLL will be seamlessly loaded and injected into another
+malicious DLL will be seamlessly loaded and injected into another
 process.
 
-This artifact searches for dlls which are named the same as the DLL
+This artifact searches for DLLs which are named the same as the DLL
 they are forwarding to.
 
 
@@ -20,10 +28,10 @@ description: |
   In Windows a common DLL hooking technique is to replace a dll with a
   forwarder dll - i.e. one that forwards all imports to the real
   dll. If the forwarder DLL is placed earlier in the import order, the
-  malicous DLL will be seamlessly loaded and injected into another
+  malicious DLL will be seamlessly loaded and injected into another
   process.
 
-  This artifact searches for dlls which are named the same as the DLL
+  This artifact searches for DLLs which are named the same as the DLL
   they are forwarding to.
 
 reference:

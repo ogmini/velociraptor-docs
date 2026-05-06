@@ -1,7 +1,11 @@
 ---
 title: MacOS.System.Packages
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Parse packages installed on Macs
 ---
 
 Parse packages installed on Macs

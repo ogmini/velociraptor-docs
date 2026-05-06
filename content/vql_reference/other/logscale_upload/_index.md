@@ -2,7 +2,11 @@
 title: logscale_upload
 index: true
 noTitle: true
+sitemap:
+   disable: true
 no_edit: true
+description: |
+  Upload rows to LogScale ingestion server.
 ---
 
 
@@ -33,7 +37,7 @@ tag_fields|Name of fields to be used as tags. Fields can be renamed using =<newn
 stats_interval|Interval, in seconds, to post statistics to the log (default: 600, 0 to disable)|int
 debug|Enable verbose logging.|bool
 
-<span class="permission_list vql_type">Required permissions:</span><span class="permission_list linkcolour label label-important">COLLECT_SERVER</span>
+<span class="permission_list vql_type">Required permissions:</span><span class="permission_list linkcolour label label-important">NETWORK</span>
 
 ### Description
 

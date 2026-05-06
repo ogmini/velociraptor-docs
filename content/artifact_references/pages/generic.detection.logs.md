@@ -1,7 +1,12 @@
 ---
 title: Generic.Detection.Logs
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact enables grep of Logs to hunt for strings of interest. Default
+  target glob includes /var/log/, Apache and Windows IIS paths.
 ---
 
 This artifact enables grep of Logs to hunt for strings of interest. Default

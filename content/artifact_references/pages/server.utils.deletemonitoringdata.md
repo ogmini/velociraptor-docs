@@ -1,7 +1,11 @@
 ---
 title: Server.Utils.DeleteMonitoringData
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  Velociraptor collects monitoring data from endpoints all the time.
 ---
 
 Velociraptor collects monitoring data from endpoints all the time.
@@ -14,7 +18,7 @@ optionally removes data older than the specified timestamp.
 
 **NOTE** This artifact will destroy all data irrevocably. Take
   care! You should always do a dry run first to see which flows
-  will match before using the ReallyDoIt option.
+  will match before using the `ReallyDoIt` option.
 
 
 <pre><code class="language-yaml">
@@ -30,7 +34,7 @@ description: |
 
    **NOTE** This artifact will destroy all data irrevocably. Take
      care! You should always do a dry run first to see which flows
-     will match before using the ReallyDoIt option.
+     will match before using the `ReallyDoIt` option.
 
 type: SERVER
 
@@ -62,15 +66,15 @@ sources:
       WHERE IsDir
         AND Hostname =~ HostnameRegex
 
-      LET SearchRegisteredClientsQuery = SELECT client_id,
+      LET SearchRegisteredClientsQuery = SELECT client_id AS ClientId,
            os_info.hostname AS hostname
       FROM clients()
       WHERE hostname =~ HostnameRegex
 
       LET SearchClients = SELECT * FROM if(
-           condition=SearchDeletedClients,
-           then=SearchDeletedClientsQuery,
-           else=SearchRegisteredClientsQuery)
+           condition=OnlyRegisteredClients,
+           then=SearchRegisteredClientsQuery,
+           else=SearchDeletedClientsQuery)
 
       SELECT * FROM foreach(row=SearchClients,
       query={
@@ -79,8 +83,13 @@ sources:
                timestamp(epoch=split(string=OSPath.Basename, sep="\\.")[0]) AS Timestamp,
                if(condition=ReallyDoIt, then=file_store_delete(path=OSPath)) AS ReallyDoIt
         FROM glob(
-          globs="/**.json*", accessor="fs",
-          root="/clients/"+ client_id + "/monitoring")
+          globs=[
+            "/monitoring/**.json*",
+            "/monitoring_logs/**.json*"
+          ],
+          accessor="fs",
+          root="/clients/" + ClientId
+        )
         WHERE ArtifactName =~ ArtifactRegex
           AND Timestamp &lt; DateBefore
       }, workers=10)

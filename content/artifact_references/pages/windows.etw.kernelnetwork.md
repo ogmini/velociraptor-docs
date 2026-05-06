@@ -1,7 +1,11 @@
 ---
 title: Windows.ETW.KernelNetwork
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Event Artifact]
+description: |
+  This artifact follows the Microsoft-Windows-Kernel-Network provider.
 ---
 
 This artifact follows the Microsoft-Windows-Kernel-Network provider.
@@ -28,10 +32,26 @@ parameters:
     type: regex
     description: View Processes with Executables matching this regex
     default: .
-
   - name: IgnoreProcessRegex
     type: regex
     description: Ignore Processes with Executables matching this regex
+  - name: DaddrRegex
+    type: regex
+    description: Target specific destination IP
+    default: .
+  - name: SaddrRegex
+    type: regex
+    description: Target specific source IP
+    default: .
+  - name: DportRegex
+    type: regex
+    description: Target specific destination port
+    default: .
+  - name: SportRegex
+    type: regex
+    description: Target specific source port
+    default: .
+
 
   - name: Events
     type: multichoice
@@ -54,8 +74,9 @@ sources:
       LET ETW = SELECT *
       FROM watch_etw(guid='{7dd42a49-5329-4832-8dfd-43d979153a88}',
            description="Microsoft-Windows-Kernel-Network")
-
+           
       SELECT System.ID AS EID,
+         System AS _System,
          get(item=EIDLookup, field=str(str=System.ID)) AS EventType,
          process_tracker_get(id=EventData.PID).Data AS ProcInfo,
          process_tracker_callchain(id=EventData.PID).Data.Exe AS CallChain,
@@ -63,6 +84,10 @@ sources:
       FROM delay(query=ETW, delay=3)
       WHERE EventType IN Events
         AND EventData.ImageName =~ ProcessRegex
+        AND EventData.daddr =~ DaddrRegex 
+        AND EventData.saddr =~ SaddrRegex 
+        AND EventData.dport =~ DportRegex 
+        AND EventData.sport =~ SportRegex
         AND if(condition=IgnoreProcessRegex,
                then=NOT EventData.ImageName =~ IgnoreProcessRegex,
                else=TRUE)

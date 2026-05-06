@@ -1,7 +1,12 @@
 ---
 title: Linux.Forensics.Journal
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Parses the binary journal logs. Systemd uses a binary log format to
+  store logs.
 ---
 
 Parses the binary journal logs. Systemd uses a binary log format to
@@ -127,6 +132,7 @@ sources:
                EventData.SYSLOG_IDENTIFIER AS Unit,
                EventData.MESSAGE AS Message
         FROM source()
+        ORDER BY Timestamp
 
 </code></pre>
 

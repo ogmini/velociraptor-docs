@@ -1,7 +1,13 @@
 ---
 title: Elastic.Flows.Upload
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Event Artifact]
+description: |
+  This server side event monitoring artifact waits for new artifacts
+  to be collected from endpoints and automatically uploads those to an
+  elastic server.
 ---
 
 This server side event monitoring artifact waits for new artifacts
@@ -13,7 +19,7 @@ to adjust the index size/lifetime according to the artifact it is
 holding.
 
 NOTE: Elastic is a database and still must have a stable
-schema. This means that artifacts that produce inconsistant columns
+schema. This means that artifacts that produce inconsistent columns
 and types will **NOT** work as expected. What will happen is that
 the first row that is inserted will create the Elastic database
 schema (In Elastic terminology "mapping") and then any subsequent
@@ -40,7 +46,7 @@ description: |
   holding.
 
   NOTE: Elastic is a database and still must have a stable
-  schema. This means that artifacts that produce inconsistant columns
+  schema. This means that artifacts that produce inconsistent columns
   and types will **NOT** work as expected. What will happen is that
   the first row that is inserted will create the Elastic database
   schema (In Elastic terminology "mapping") and then any subsequent

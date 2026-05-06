@@ -1,7 +1,14 @@
 ---
 title: System.VFS.DownloadFile
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This is an internal artifact used by the GUI to populate the
+  VFS. You may run it manually if you like, but typically it is
+  launched by the GUI when the user clicks the "Collect from client"
+  button at the file "Stats" tab.
 ---
 
 This is an internal artifact used by the GUI to populate the
@@ -38,6 +45,10 @@ parameters:
     description: |
       If specified, Path is interpreted as a directory and
       we download all files below it.
+  - name: UPLOAD_IS_RESUMABLE
+    type: bool
+    default: N
+    description: If set the uploads can be resumed if the flow times out or errors.
 
 sources:
   - query: |

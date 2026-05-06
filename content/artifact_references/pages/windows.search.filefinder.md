@@ -1,7 +1,11 @@
 ---
 title: Windows.Search.FileFinder
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Find files on the filesystem using the filename or content.
 ---
 
 Find files on the filesystem using the filename or content.
@@ -71,6 +75,9 @@ precondition:
   SELECT * FROM info() where OS = 'windows'
 
 parameters:
+  - name: Glob
+    description: "Search for this file glob"
+
   - name: SearchFilesGlobTable
     type: csv
     default: |
@@ -116,6 +123,12 @@ parameters:
       If larger than 0 we restrict VSS age to this many days
       ago. Otherwise we find all VSS.
 
+  - name: UPLOAD_IS_RESUMABLE
+    type: bool
+    default: N
+    description: |
+      If set, file uploads will be asynchronous and resumable.
+
 sources:
   - query: |
       LET file_search = SELECT OSPath,
@@ -126,7 +139,7 @@ sources:
                Btime AS BTime,
                Ctime AS CTime, "" AS Keywords,
                IsDir, Data
-        FROM glob(globs=SearchFilesGlobTable.Glob,
+        FROM glob(globs=Glob || SearchFilesGlobTable.Glob,
                   accessor=Accessor)
 
       LET more_recent = SELECT * FROM if(

@@ -1,7 +1,14 @@
 ---
 title: Windows.Registry.Sysinternals.Eulacheck
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Checks for the Accepted Sysinternals EULA from the registry key
+  "HKCU\Software\Sysinternals\[TOOL]\".  When a Sysinternals tool is
+  first run on a system, the EULA must be accepted. This writes a
+  value called EulaAccepted under that key.
 ---
 
 Checks for the Accepted Sysinternals EULA from the registry key

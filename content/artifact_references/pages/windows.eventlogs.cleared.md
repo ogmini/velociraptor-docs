@@ -1,7 +1,13 @@
 ---
 title: Windows.EventLogs.Cleared
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Extract Event Logs related to EventLog clearing
+  - Security Log  - EventID 1102
+  - System Log - EventID 104
 ---
 
 Extract Event Logs related to EventLog clearing

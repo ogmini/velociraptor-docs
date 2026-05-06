@@ -3,6 +3,8 @@ title: "VQL Fundamentals"
 date: 2025-01-24
 draft: false
 weight: 10
+description: |
+  {{% notice tip "Running VQL queries in Notebooks" %}}
 ---
 
 {{% notice tip "Running VQL queries in Notebooks" %}}
@@ -10,7 +12,7 @@ weight: 10
 When learning VQL, we recommend practicing in an environment where you can
 easily debug, iterate, and interactively test each query.
 
-You can read more about notebooks [here]({{< ref "/docs/notebooks/" >}}).
+You can read more about notebooks [here](/docs/notebooks/).
 For the purposes of this documentation, we will assume you've created a notebook
 and are typing VQL into the cell.
 
@@ -78,6 +80,52 @@ type, and if they are required or optional.
 ![VQL Plugin arguments Completions](completion2.png)
 
 {{% /notice %}}
+
+#### Argument unpacking
+
+Args can be passed to plugins or functions as a dict.
+
+In the following simple example, the plugin's args are first packed
+into a dict. The plugin is then passed the dict using the special `**`
+arg, which unpacks the dict into the separate arguments that the
+plugin expects.
+
+###### Example
+
+```vql
+LET args <= dict(root="c:/windows", globs="*")
+
+SELECT *
+FROM glob(`**`=args)
+```
+
+Note that the `**` has to be enclosed in backticks because
+[it is an identifier that uses non-alphanumeric characters](/docs/vql/fundamentals/#identifiers-with-spaces).
+
+#### Free-form Args
+
+Certain plugins and functions, namely:
+- `alert`
+- `array`
+- `chain`
+- `dict`
+- `sigma_log_sources`
+- `switch`
+- `typeof`
+
+accept arbitrary arguments, which we call "free-form args".
+
+However all args still have to be named, so you'll usually see the
+args specified as `a=, b=, c=` just for simplicity.
+
+###### Example
+
+```vql
+SELECT *
+    FROM chain(
+      a={ SELECT * FROM ...) },
+      b={ SELECT * FROM ...) })
+```
 
 ### Life of a query
 
@@ -307,6 +355,35 @@ single element, VQL also allows a trailing comma to indicate a single
 element array. For example `(1, )` means an array with one member,
 whereas `(1)` means a single value of 1.
 
+### Dictionaries
+
+A dictionary (or in short a `dict`) is an associative data structure
+which associates keys with values. This is often called a `hash map`
+in other languages.
+
+VQL's dict appears in many places and used heavily internally. You can
+recognize that a dict is involved using the `typeof()` VQL function.
+
+Unlike some other languages, Velociraptor's dicts maintain their key
+order. You can iterate over the dict's key value pairs using the
+`items()` plugin:
+
+```vql
+LET MyDict <= dict(Foo=1, Bar=2, Baz=3)
+
+SELECT * FROM items(item=MyDict)
+```
+
+The dict has a number of very useful attributes:
+
+* `MyDict.Items`: Returns a list of key value pairs
+* `MyDict.Keys`: Returns a list of keys
+* `MyDict.Values`: Returns a list of Values
+* `MyDict.Len`: Returns the number of keys
+* `MyDict.ToMap`: Converts to an unordered map.
+* `MyDict.String`: Converts to a JSON representation of the dict.
+
+
 ### The scope() plugin
 
 VQL is strict about the syntax of a VQL statement. Each statement must
@@ -338,7 +415,8 @@ used in the query, VQL does not have table indexes, nor does it have
 any tables. Therefore the `JOIN` operator is meaningless for
 Velociraptor. To keep VQL simple and accessible, we specifically did
 not implement a `JOIN` operator. For a more detailed discussion of the
-`JOIN` operator see [emulating join in VQL]({{% relref "../join" %}})
+`JOIN` operator see
+[emulating join in VQL](/docs/vql/join/).
 
 Instead of a `JOIN` operator, VQL has the `foreach()` plugin, which is
 probably the most commonly used plugin in VQL queries. The `foreach()`

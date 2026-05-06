@@ -1,7 +1,11 @@
 ---
 title: Server.Utils.CreateLinuxPackages
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  Build Deb and RPM packages ready for deployment in the current org.
 ---
 
 Build Deb and RPM packages ready for deployment in the current org.
@@ -45,12 +49,17 @@ parameters:
     type: yaml
   - name: ServiceName
     description: Customize the service name
+  - name: Release
+    description: Customize the release version
   - name: Maintainer
     description: Customize the maintainer
   - name: MaintainerEmail
     description: Customize the maintainer email
   - name: Homepage
     description: Customize the homepage URL
+  - name: Vendor
+    description: The vendor
+    default: The Velociraptor Team
 
 sources:
 - query: |
@@ -64,14 +73,29 @@ sources:
 
     LET TmpDir &lt;= tempdir()
 
+    // This is an example of how to modify the spec to customize the
+    // creation of the RPM. The default template does not set the
+    // vendor property in the RPM, so we just update the metadata
+    // template while preserving all the other fields.
+    // See https://github.com/google/rpmpack/blob/2467806670a618497006ff8d8623b0430c7605a9/rpm.go#L56
     LET _RPMSpec &lt;= SELECT Spec FROM rpm_create(show_spec=TRUE)
-    LET RPMSpec &lt;= _RPMSpec[0].Spec
+    LET RPMSpec &lt;= _RPMSpec[0].Spec + dict(Templates=_RPMSpec[0].Spec.Templates +
+     dict(Metadata=format(format='''
+       {"Name": "{{ .SysvService }}",
+        "Vendor": "%v",
+        "Version": "{{ .Version }}",
+        "Release": "{{ .Release }}",
+        "Arch": "{{ .Arch }}",
+        "BuildTime": "%v"
+       }
+       ''', args=[Vendor, timestamp(epoch=now())])))
 
     LET _DebSpec &lt;= SELECT Spec FROM deb_create(show_spec=TRUE)
     LET DebSpec &lt;= _DebSpec[0].Spec
 
     LET UpdateExpansion(Expansion) = Expansion + dict(
        Name=ServiceName || Expansion.Name,
+       Release=Release || Expansion.Release,
        SysvService=ServiceName || Expansion.SysvService,
        Maintainer=Maintainer || Expansion.Maintainer,
        MaintainerEmail=MaintainerEmail || Expansion.MaintainerEmail,
@@ -93,6 +117,7 @@ sources:
         directory_name=TmpDir,
         package_spec=RPMSpec +
             dict(Expansion=UpdateExpansion(Expansion=RPMSpec.Expansion)),
+        release=Release || RPMSpec.Expansion.Release,
         config=serialize(item=client_config, format="yaml"))
     })
 

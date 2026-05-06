@@ -1,7 +1,11 @@
 ---
 title: Windows.Registry.EnabledMacro
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Checks for Registry key indicating macro was enabled by user.
 ---
 
 Checks for Registry key indicating macro was enabled by user.

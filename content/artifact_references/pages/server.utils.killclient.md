@@ -1,10 +1,14 @@
 ---
 title: Server.Utils.KillClient
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  This artifact aggressively kills a client.
 ---
 
-This artifact agressively kills a client.
+This artifact aggressively kills a client.
 
 If the client runs as a service, it will restart by the service manager.
 
@@ -15,7 +19,7 @@ it may not restart and further communication will be lost!
 <pre><code class="language-yaml">
 name: Server.Utils.KillClient
 description: |
-  This artifact agressively kills a client.
+  This artifact aggressively kills a client.
 
   If the client runs as a service, it will restart by the service manager.
 

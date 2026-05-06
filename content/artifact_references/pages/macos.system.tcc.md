@@ -1,7 +1,13 @@
 ---
 title: MacOS.System.TCC
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact provides details around the TCC (Transparency,
+  Consent, and Control) database, and can help reveal when access to
+  system services has been added or modified for an application.
 ---
 
 This artifact provides details around the TCC (Transparency,

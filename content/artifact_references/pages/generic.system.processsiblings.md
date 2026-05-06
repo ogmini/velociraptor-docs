@@ -1,7 +1,13 @@
 ---
 title: Generic.System.ProcessSiblings
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact queries the process tracker to display all known
+  sibling processes of the target process (i.e. all other processes
+  from the same parent).
 ---
 
 This artifact queries the process tracker to display all known

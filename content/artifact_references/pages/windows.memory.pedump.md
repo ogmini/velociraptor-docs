@@ -1,7 +1,12 @@
 ---
 title: Windows.Memory.PEDump
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact dumps a PE file from memory and uploads the file to
+  the server.
 ---
 
 This artifact dumps a PE file from memory and uploads the file to
@@ -11,9 +16,9 @@ NOTE: The output is not exactly the same as the original binary:
 1. Relocations are not fixed
 2. Due to ASLR the base address of the binary will not be the same as the original.
 
-The result is usully much better than the binaries dumped from a
+The result is usually much better than the binaries dumped from a
 physical memory image (using e.g. Volatility) because reading
-process memory will page in any mmaped pages as we copy them
+process memory will page in any memory-mapped pages as we copy them
 out. Therefore we do not expect to have holes in the produced binary
 as is often the case in memory analysis.
 
@@ -28,9 +33,9 @@ description: |
   1. Relocations are not fixed
   2. Due to ASLR the base address of the binary will not be the same as the original.
 
-  The result is usully much better than the binaries dumped from a
+  The result is usually much better than the binaries dumped from a
   physical memory image (using e.g. Volatility) because reading
-  process memory will page in any mmaped pages as we copy them
+  process memory will page in any memory-mapped pages as we copy them
   out. Therefore we do not expect to have holes in the produced binary
   as is often the case in memory analysis.
 

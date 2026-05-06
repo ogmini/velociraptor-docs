@@ -1,7 +1,11 @@
 ---
 title: Generic.Utils.DeadDiskRemapping
 hidden: true
-tags: [Client Artifact]
+sitemap:
+  disable: true
+tags: [Server Artifact]
+description: |
+  Calculate a remapping configuration from a dead disk image.
 ---
 
 Calculate a remapping configuration from a dead disk image.
@@ -13,7 +17,7 @@ The following cases are handled:
 
 * If ImagePath is a directory to a mounted partition then we
   generate directory remapping. This is suitable for handling images
-  with filesystems that Velociraptor can not yet directly handle.
+  with filesystems that Velociraptor cannot yet directly handle.
 
 * If the ImagePath points to a file which starts with the NTFS
   signature we assume this is a partition image and not a disk
@@ -21,7 +25,7 @@ The following cases are handled:
 
 * If the ImagePath is a full disk image we assume it has a partition
   table at the front, we then enumerate all the partitions and look
-  for an ntfs partition with a `Windows` directory at the top
+  for an NTFS partition with a `Windows` directory at the top
   level. We assume this is the windows drive and remap it to the C:
   drive.
 
@@ -38,7 +42,7 @@ description: |
 
   * If ImagePath is a directory to a mounted partition then we
     generate directory remapping. This is suitable for handling images
-    with filesystems that Velociraptor can not yet directly handle.
+    with filesystems that Velociraptor cannot yet directly handle.
 
   * If the ImagePath points to a file which starts with the NTFS
     signature we assume this is a partition image and not a disk
@@ -46,9 +50,11 @@ description: |
 
   * If the ImagePath is a full disk image we assume it has a partition
     table at the front, we then enumerate all the partitions and look
-    for an ntfs partition with a `Windows` directory at the top
+    for an NTFS partition with a `Windows` directory at the top
     level. We assume this is the windows drive and remap it to the C:
     drive.
+
+type: SERVER
 
 parameters:
   - name: ImagePath
@@ -123,6 +129,16 @@ parameters:
           accessor: raw_reg
       - type: shadow
         from:
+          accessor: raw_reg
+        "on":
+          accessor: raw_registry
+      - type: shadow
+        from:
+          accessor: raw_ntfs
+        "on":
+          accessor: ntfs
+      - type: shadow
+        from:
           accessor: data
         "on":
           accessor: data
@@ -138,13 +154,28 @@ export: |
        WHERE IsDir
      },
        b={
-       SELECT 0 AS StartOffset, Accessor, ImagePath AS PartitionPath
+       // Check for a partition image if there is an NTFS header at
+       // the start.
+       SELECT 0 AS StartOffset,
+              GuessAccessor(ImagePath=ImagePath) AS Accessor,
+              pathspec(
+                 DelegateAccessor="offset",
+                 Delegate=pathspec(
+                    DelegateAccessor=GuessAccessor(ImagePath=ImagePath),
+                    DelegatePath=ImagePath,
+                    Path="0")) AS PartitionPath,
+              read_file(accessor=GuessAccessor(ImagePath=ImagePath),
+                       filename=ImagePath,
+                       length=4, offset=3) AS Magic
        FROM scope()
-       WHERE read_file(accessor=Accessor, filename=ImagePath, length=4, offset=3) = "NTFS"
+       WHERE Magic = "NTFS"
         AND log(message="Detected NTFS signature at offset 0 - " +
                "assuming this is a Windows partition image")
      },
        c={
+
+       // Assume this is a disk image with a partition table - look
+       // for the first Windows OS partition
        SELECT StartOffset, Accessor, _PartitionPath AS PartitionPath
        FROM Artifact.Windows.Forensics.PartitionTable(
            ImagePath=ImagePath,
@@ -278,7 +309,7 @@ export: |
 sources:
 - query: |
     LET WindowsPartition &lt;=
-      _FindWindowsPartition(ImagePath=ImagePath, accessor=Accessor)[0]
+      _FindWindowsPartition(ImagePath=ImagePath, Accessor=Accessor)[0]
 
     LET Remappings &lt;= parse_yaml(
       filename=template(template=CommonRemapping,

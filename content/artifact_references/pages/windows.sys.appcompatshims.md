@@ -1,7 +1,13 @@
 ---
 title: Windows.Sys.AppcompatShims
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Application Compatibility shims are a way to persist malware. This
+  table presents the AppCompat Shim information from the registry in a
+  nice format.
 ---
 
 Application Compatibility shims are a way to persist malware. This

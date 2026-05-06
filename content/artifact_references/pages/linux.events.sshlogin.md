@@ -1,7 +1,12 @@
 ---
 title: Linux.Events.SSHLogin
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Event Artifact]
+description: |
+  This monitoring artifact watches the auth.log file for new
+  successful SSH login events and relays them back to the server.
 ---
 
 This monitoring artifact watches the auth.log file for new

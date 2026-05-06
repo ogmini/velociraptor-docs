@@ -1,7 +1,11 @@
 ---
 title: Windows.Network.ListeningPorts
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Processes with listening (bound) network sockets/ports.
 ---
 
 Processes with listening (bound) network sockets/ports.

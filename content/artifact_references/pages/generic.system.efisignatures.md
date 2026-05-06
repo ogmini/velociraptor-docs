@@ -1,7 +1,11 @@
 ---
 title: Generic.System.EfiSignatures
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Collect Efi Signature information from the client.
 ---
 
 Collect Efi Signature information from the client.

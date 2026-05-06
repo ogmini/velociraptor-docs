@@ -1,7 +1,11 @@
 ---
 title: MacOS.Forensics.FSEvents
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact parses the FSEvents log files.
 ---
 
 This artifact parses the FSEvents log files.
@@ -13,12 +17,12 @@ created on a specific date. Malware often creates plist files in
 /Library/LaunchAgents, Library/Preferences, /Library/LaunchDaemons, or
 /Library/Internet Plugins.
 
-NOTE:
+#### NOTES
 
 - FSEvents do not have timestamps so we specify source file Mtime and
-Btime.
-- default timeout is only 600 seconds - you will need to increase for this
-colection to finish.
+  Btime.
+- The default timeout is only 600 seconds - you will probably need to
+  increase it to allow the collection to finish.
 
 
 <pre><code class="language-yaml">
@@ -33,12 +37,12 @@ description: |
    /Library/LaunchAgents, Library/Preferences, /Library/LaunchDaemons, or
    /Library/Internet Plugins.
 
-   NOTE:
+   #### NOTES
 
    - FSEvents do not have timestamps so we specify source file Mtime and
-   Btime.
-   - default timeout is only 600 seconds - you will need to increase for this
-   colection to finish.
+     Btime.
+   - The default timeout is only 600 seconds - you will probably need to
+     increase it to allow the collection to finish.
 
 author: |
   Mike Cohen, Matt Green - @mgreen27, Yogesh Khatri (@swiftforensics), CyberCX
@@ -67,6 +71,10 @@ parameters:
      description: Filter by flags
      type: regex
      default: .
+   - name: MaxFileSize
+     type: int
+     default: "10000000"
+     description: "Read up to that many bytes"
    - name: DateAfter
      type: timestamp
      description: "search for source files with Btime after this date. YYYY-MM-DDTmm:hh:ssZ"
@@ -256,11 +264,10 @@ sources:
                 Btime as SourceBtime
             FROM
                 foreach(row=parse_binary(
-                    filename=read_file(filename=OSPath, accessor="gzip", length=1000000),
+                    filename=read_file(filename=OSPath, accessor="gzip", length=MaxFileSize),
                     accessor="data",
                     profile=FSEventProfile, struct="FSEventsProfile").Entries)
         })
-        WHERE EntryPath =~ PathRegex AND EntryFlags =~ FlagsRegex
 
       SELECT
         items.path as EntryPath,
@@ -273,6 +280,7 @@ sources:
         Version
       FROM
         flatten(query=x)
+      WHERE EntryPath =~ PathRegex AND EntryFlags =~ FlagsRegex
 
 </code></pre>
 

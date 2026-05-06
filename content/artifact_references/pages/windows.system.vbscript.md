@@ -1,7 +1,11 @@
 ---
 title: Windows.System.VBScript
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact allows running VBScript through cscript.exe.
 ---
 
 This artifact allows running VBScript through cscript.exe.

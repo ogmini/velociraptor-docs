@@ -1,7 +1,13 @@
 ---
 title: Generic.Client.Profile
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact collects profiling information about the running
+  client. This is useful when you notice a high CPU load in the client
+  and want to know why.
 ---
 
 This artifact collects profiling information about the running
@@ -20,7 +26,7 @@ The following options are most useful:
 
 3. Profile: This takes a CPU profile of the running process for the
    number of seconds specified in the Duration parameter. You can
-   read profiles using:
+   read profiles by using:
 
 ```
 go tool pprof -callgrind -output=profile.grind profile.bin
@@ -55,7 +61,7 @@ description: |
 
   3. Profile: This takes a CPU profile of the running process for the
      number of seconds specified in the Duration parameter. You can
-     read profiles using:
+     read profiles by using:
 
   ```
   go tool pprof -callgrind -output=profile.grind profile.bin

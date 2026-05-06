@@ -1,7 +1,11 @@
 ---
 title: Windows.Registry.RecentDocs
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact extracts RecentDocs MRU from the target.
 ---
 
 This artifact extracts RecentDocs MRU from the target.
@@ -125,7 +129,7 @@ sources:
             AND Data.type =~ 'BINARY'
 
 
-      -- Glob method allows offline processing but can not filter by user
+      -- Glob method allows offline processing but cannot filter by user
       LET GlobValues = SELECT
             Mtime,
             OSPath.Components[-2] AS Type,

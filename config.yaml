@@ -7,7 +7,14 @@ disqusShortname: velocidex-velociraptor
 #security:
 #  enableInlineShortcodes: true
 
+enableGitInfo: true
+
+privacy:
+  googleAnalytics:
+    disable: true
+
 params:
+  searchURL: https://search.velociraptor-docs.org/query
   noDisqus: true
   themeVariant: "mine"
   disableSearch: true
@@ -37,7 +44,7 @@ markup:
 
 menu:
   shortcuts:
-   -  name: "<i class='fab fa-github'></i>Github"
+   -  name: "<i class='fab fa-github'></i>GitHub"
       identifier: "gh"
       url: "https://github.com/Velocidex/velociraptor"
       weight: 10
@@ -69,4 +76,3 @@ outputs:
   home: ["HTML"]
   section: ["HTML"]
   taxonomy: ["HTML"]
-

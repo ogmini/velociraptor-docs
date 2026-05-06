@@ -1,16 +1,20 @@
 ---
 title: Windows.Sysinternals.SysmonLogForward
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Event Artifact]
+description: |
+  A client-side event forwarder to forward Sysmon events to the server.
 ---
 
-A client side event forwarder to forward sysmon events to the server.
+A client-side event forwarder to forward Sysmon events to the server.
 
 
 <pre><code class="language-yaml">
 name: Windows.Sysinternals.SysmonLogForward
 description: |
-  A client side event forwarder to forward sysmon events to the server.
+  A client-side event forwarder to forward Sysmon events to the server.
 
 type: CLIENT_EVENT
 

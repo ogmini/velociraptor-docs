@@ -1,7 +1,11 @@
 ---
 title: Notebooks.Default
 hidden: true
+sitemap:
+  disable: true
 tags: [notebook]
+description: |
+  A default notebook.
 ---
 
 A default notebook.

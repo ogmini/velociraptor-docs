@@ -1,7 +1,12 @@
 ---
 title: System.Flow.Archive
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Event Artifact]
+description: |
+  An internal artifact that produces events for every flow completion
+  in the system.
 ---
 
 An internal artifact that produces events for every flow completion

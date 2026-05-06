@@ -1,7 +1,11 @@
 ---
 title: Linux.Search.FileFinder
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Find files on the filesystem using the filename or content.
 ---
 
 Find files on the filesystem using the filename or content.
@@ -130,6 +134,12 @@ parameters:
   - name: ACCESSOR
     type: hidden
     default: "file"
+
+  - name: UPLOAD_IS_RESUMABLE
+    type: bool
+    default: N
+    description: |
+      If set the uploads can be resumed if the flow times out or errors.
 
 sources:
 - query: |

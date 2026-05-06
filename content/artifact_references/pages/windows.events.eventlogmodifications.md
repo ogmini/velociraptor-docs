@@ -1,11 +1,17 @@
 ---
 title: Windows.Events.EventLogModifications
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Event Artifact]
+description: |
+  It is possible to disable windows event logs on a per channel or per
+  provider basis. Attackers may disable critical log sources to
+  prevent detections.
 ---
 
 It is possible to disable windows event logs on a per channel or per
-provider basis. Attackers may disable ciritcal log sources to
+provider basis. Attackers may disable critical log sources to
 prevent detections.
 
 This artifact monitors the state of the event log system from the
@@ -16,7 +22,7 @@ registry and attempts to detect when event logs were disabled.
 name: Windows.Events.EventLogModifications
 description: |
   It is possible to disable windows event logs on a per channel or per
-  provider basis. Attackers may disable ciritcal log sources to
+  provider basis. Attackers may disable critical log sources to
   prevent detections.
 
   This artifact monitors the state of the event log system from the

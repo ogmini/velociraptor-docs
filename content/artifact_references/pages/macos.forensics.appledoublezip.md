@@ -1,7 +1,12 @@
 ---
 title: MacOS.Forensics.AppleDoubleZip
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Search for zip files containing leaked download URLs included by
+  MacOS users.
 ---
 
 Search for zip files containing leaked download URLs included by

@@ -1,7 +1,11 @@
 ---
 title: Windows.System.WMIQuery
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact enables querying Windows Management Instrumentation (WMI).
 ---
 
 This artifact enables querying Windows Management Instrumentation (WMI).
@@ -14,7 +18,7 @@ standard to represent systems, applications, networks, devices, and other
 managed components. CIM is developed and maintained by the Distributed
 Management Task Force (DMTF).
 
-Please see the second reference link for an example of built in system classes.
+Please see the second reference link for an example of built-in system classes.
 
 
 <pre><code class="language-yaml">
@@ -31,7 +35,7 @@ description: |
     managed components. CIM is developed and maintained by the Distributed
     Management Task Force (DMTF).
 
-    Please see the second reference link for an example of built in system classes.
+    Please see the second reference link for an example of built-in system classes.
 
 reference:
     - https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmi-start-page

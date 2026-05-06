@@ -1,10 +1,14 @@
 ---
 title: Windows.System.Powershell.ModuleAnalysisCache
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  ModuleAnalysisCache stores metadata about loaded PowerShell modules.
 ---
 
-ModuleAnalysisCache stores metadata about loaded Powershell modules.
+ModuleAnalysisCache stores metadata about loaded PowerShell modules.
 
 Recent updates include filters by regex to enable targeted hunting
 use cases.
@@ -13,7 +17,7 @@ use cases.
 <pre><code class="language-yaml">
 name: Windows.System.Powershell.ModuleAnalysisCache
 description: |
-    ModuleAnalysisCache stores metadata about loaded Powershell modules.
+    ModuleAnalysisCache stores metadata about loaded PowerShell modules.
 
     Recent updates include filters by regex to enable targeted hunting
     use cases.

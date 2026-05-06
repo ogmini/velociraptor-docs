@@ -1,7 +1,11 @@
 ---
 title: Windows.Sys.FirewallRules
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  List Windows firewall rules.
 ---
 
 List Windows firewall rules.

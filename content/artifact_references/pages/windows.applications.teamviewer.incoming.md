@@ -1,7 +1,11 @@
 ---
 title: Windows.Applications.TeamViewer.Incoming
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Parses the TeamViewer Connections_incoming.txt log file.
 ---
 
 Parses the TeamViewer Connections_incoming.txt log file.

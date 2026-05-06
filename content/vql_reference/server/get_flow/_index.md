@@ -2,7 +2,11 @@
 title: get_flow
 index: true
 noTitle: true
+sitemap:
+   disable: true
 no_edit: true
+description: |
+  Gets flow details.
 ---
 
 
@@ -24,8 +28,4 @@ flow_id||string
 
 <span class="permission_list vql_type">Required permissions:</span><span class="permission_list linkcolour label label-important">COLLECT_CLIENT</span>
 <span class="permission_list linkcolour label label-important">COLLECT_SERVER</span>
-
-### Description
-
-Gets flow details.
 

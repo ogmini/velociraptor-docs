@@ -5,10 +5,15 @@ date: 2024-12-19
 draft: false
 weight: 60
 last_reviewed: 2024-12-30
+description: |
+  Velociraptor's collects data from endpoints using
+  [Artifacts](/docs/artifacts/)
+  which are logical containers for curated VQL queries. In fact all VQL queries
+  run on clients must be delivered to the client as artifacts.
 ---
 
 Velociraptor's collects data from endpoints using
-[Artifacts]({{< ref "/docs/artifacts/" >}})
+[Artifacts](/docs/artifacts/)
 which are logical containers for curated VQL queries. In fact all VQL queries
 run on clients must be delivered to the client as artifacts.
 
@@ -22,7 +27,7 @@ for doing this on the **Shell** page, which allows running arbitrary shell
 commands on the endpoint using `Powershell`/`Cmd`/`Bash` or adhoc `VQL`.
 
 As stated above, all queries are delivered to clients in the form of artifacts.
-In the same way that [VFS viewer]({{< ref "/docs/clients/vfs/" >}}) actions are
+In the same way that [VFS viewer](/docs/clients/vfs/) actions are
 "translated" into artifacts which the client can run, the Shell commands are
 also delivered via artifacts in the background. After running Shell commands you
 can navigate to the client's Collections page and see the artifacts that were

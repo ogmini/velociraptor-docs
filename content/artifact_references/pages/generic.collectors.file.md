@@ -1,7 +1,13 @@
 ---
 title: Generic.Collectors.File
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Collects files using a set of globs. All globs must be on the same
+  device. The globs will be searched in one pass - so you can provide
+  many globs at the same time.
 ---
 
 Collects files using a set of globs. All globs must be on the same
@@ -45,6 +51,12 @@ parameters:
     type: int
     description: How often to flush the NTFS cache. (Default is never).
     default: "1000000"
+
+  - name: UPLOAD_IS_RESUMABLE
+    type: bool
+    default: N
+    description: |
+      If set the uploads can be resumed if the flow times out or errors.
 
   - name: MaxFileSize
     type: int

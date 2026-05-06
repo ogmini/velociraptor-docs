@@ -1,7 +1,15 @@
 ---
 title: Windows.Triage.SDS
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Collects the $Secure:$SDS stream from the NTFS volume. The $Secure
+  stream is both a directory (it has I30 stream) and a file (it has a
+  $DATA stream) and therefore confuses the Windows.KapeFiles.Target
+  artifact which relies on globbing. Use this artifact to collect the
+  $SDS stream.
 ---
 
 Collects the $Secure:$SDS stream from the NTFS volume. The $Secure

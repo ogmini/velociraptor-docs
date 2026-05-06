@@ -1,7 +1,11 @@
 ---
 title: Windows.Memory.ProcessInfo
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact returns process information obtained by parsing the PEB directly.
 ---
 
 This artifact returns process information obtained by parsing the PEB directly.
@@ -32,7 +36,7 @@ parameters:
 
 sources:
 - query: |
-       LET profile = '''[
+       LET PEBprofile = '''[
        ["PEB",0 , [
            # https://docs.microsoft.com/en-us/windows/win32/api/winternl/ns-winternl-peb
            ["ProcessParameters", 32, "Pointer", {
@@ -72,7 +76,7 @@ sources:
            format(format="%0#x", args=PebBaseAddress) AS PebBaseAddress, Pid,
            parse_binary(accessor="process",
                         filename=format(format="/%v", args=PID),
-                        profile=profile,
+                        profile=PEBprofile,
                         struct="PEB",
                         offset=PebBaseAddress) AS Data
        FROM pslist(pid=PID)

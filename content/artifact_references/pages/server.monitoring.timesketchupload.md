@@ -1,7 +1,11 @@
 ---
 title: Server.Monitoring.TimesketchUpload
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Event Artifact]
+description: |
+  This artifact will automatically upload any Velociraptor timelines to Timesketch.
 ---
 
 This artifact will automatically upload any Velociraptor timelines to Timesketch.
@@ -31,7 +35,7 @@ parameters:
   - name: TimesketchCLICommand
     default: "timesketch"
     description: |
-      The path to the timesketch cli binary. If you installed in a
+      The path to the Timesketch CLI binary. If you installed in a
       virtual environment this will be inside that environment.
 
 required_permissions:

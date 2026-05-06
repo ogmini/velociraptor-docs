@@ -1,11 +1,18 @@
 ---
 title: Reporting.Default
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  A default template for HTML export.  This template will be used to
+  host HTML exports such as the notebook and the reporting
+  templates. Velociraptor will evaluate this template on the following
+  dict:
 ---
 
 A default template for HTML export.  This template will be used to
-host html exports such as the notebook and the reporting
+host HTML exports such as the notebook and the reporting
 templates. Velociraptor will evaluate this template on the following
 dict:
 
@@ -14,7 +21,7 @@ dict:
 
 ## Notes
 
-1. All html elements are allowed in a html template.
+1. All HTML elements are allowed in a HTML template.
 
 2. It is possible to run arbitrary VQL (and therefore arbitrary
    code) inside HTML templates. Therefore to modify this you will
@@ -28,7 +35,7 @@ type: SERVER
 
 description: |
   A default template for HTML export.  This template will be used to
-  host html exports such as the notebook and the reporting
+  host HTML exports such as the notebook and the reporting
   templates. Velociraptor will evaluate this template on the following
   dict:
 
@@ -37,7 +44,7 @@ description: |
 
   ## Notes
 
-  1. All html elements are allowed in a html template.
+  1. All HTML elements are allowed in a HTML template.
 
   2. It is possible to run arbitrary VQL (and therefore arbitrary
      code) inside HTML templates. Therefore to modify this you will

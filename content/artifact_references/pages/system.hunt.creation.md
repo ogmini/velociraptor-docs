@@ -1,7 +1,11 @@
 ---
 title: System.Hunt.Creation
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Event Artifact]
+description: |
+  An event artifact that fires when a user schedules a new hunt.
 ---
 
 An event artifact that fires when a user schedules a new hunt.

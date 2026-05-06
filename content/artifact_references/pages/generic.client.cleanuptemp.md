@@ -1,7 +1,11 @@
 ---
 title: Generic.Client.CleanupTemp
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact cleans up the temp folder in the Velociraptor client.
 ---
 
 This artifact cleans up the temp folder in the Velociraptor client.

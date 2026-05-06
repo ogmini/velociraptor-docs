@@ -1,7 +1,12 @@
 ---
 title: Windows.EventLogs.Telerik
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This Artifact will hunt for evidence of Telerik exploitation in the Application
+  Event Log.
 ---
 
 This Artifact will hunt for evidence of Telerik exploitation in the Application

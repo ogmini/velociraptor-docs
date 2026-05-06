@@ -1,7 +1,11 @@
 ---
 title: Windows.System.Handles
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Enumerate the handles from selected processes.
 ---
 
 Enumerate the handles from selected processes.
@@ -26,9 +30,11 @@ parameters:
     description: Search for File Handles
     type: bool
     default: Y
+
   - name: Key
     description: Search for Key Handles
     type: bool
+
   - name: IncludeAccessMasks
     type: bool
 

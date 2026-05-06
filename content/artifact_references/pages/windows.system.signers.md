@@ -1,7 +1,11 @@
 ---
 title: Windows.System.Signers
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  This artifact searches for all signed files and stacks them by signer.
 ---
 
 This artifact searches for all signed files and stacks them by signer.

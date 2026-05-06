@@ -1,7 +1,11 @@
 ---
 title: Windows.Packs.LateralMovement
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Detect evidence of lateral movement.
 ---
 
 Detect evidence of lateral movement.
@@ -36,8 +40,7 @@ sources:
       WHERE Binary =~ "wmic.exe"
   - name: AmCache
     query: |
-      SELECT * FROM Artifact.Windows.System.Amcache()
-      WHERE Binary =~ "wmic.exe"
-
+      SELECT * FROM Artifact.Windows.Detection.Amcache()
+      WHERE EntryPath =~ "wmic.exe"
 </code></pre>
 

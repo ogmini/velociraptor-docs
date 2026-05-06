@@ -1,7 +1,12 @@
 ---
 title: Windows.ETW.Registry
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Event Artifact]
+description: |
+  Windows Registry access is a great source of visibility into system
+  activity.
 ---
 
 Windows Registry access is a great source of visibility into system
@@ -13,13 +18,12 @@ visibility using ETW. The Microsoft-Windows-Kernel-Registry provides
 ETW events for registry modifications.
 
 This artifact parses these events and ties them back to the
-accessing process. It is recommended to run this artifact with the
+accessing process. We recommend running this artifact with the
 process tracker.
 
-NOTE: Experience shows this ETW provider is not very reliable and
-seems to miss a lot of registry events.
-
-This artifact is experimental.
+NOTE: Experience shows this ETW provider is not very reliable and seems to
+miss a lot of registry events. This artifact should therefore be considered
+experimental.
 
 
 <pre><code class="language-yaml">
@@ -34,13 +38,12 @@ description: |
   ETW events for registry modifications.
 
   This artifact parses these events and ties them back to the
-  accessing process. It is recommended to run this artifact with the
+  accessing process. We recommend running this artifact with the
   process tracker.
 
-  NOTE: Experience shows this ETW provider is not very reliable and
-  seems to miss a lot of registry events.
-
-  This artifact is experimental.
+  NOTE: Experience shows this ETW provider is not very reliable and seems to
+  miss a lot of registry events. This artifact should therefore be considered
+  experimental.
 
 type: CLIENT_EVENT
 
@@ -89,6 +92,7 @@ sources:
     WHERE KeyName =~ KeyNameRegex
 
     SELECT Timestamp, EventType,
+       System AS _System, EventData AS _EventData,
        Process.Name AS ProcessName, Process.Username AS Owner,
        Process.CommandLine AS CommandLine,
        KeyName, EventData.ValueName AS ValueName

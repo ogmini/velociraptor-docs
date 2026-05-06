@@ -1,7 +1,11 @@
 ---
 title: Demo.Plugins.GUI
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  A demo plugin showing some GUI features.
 ---
 
 A demo plugin showing some GUI features.
@@ -89,18 +93,11 @@ parameters:
       A,B
       C,D
 
-  - name: CSVData2
-    type: csv
-    default: |
-      Column1,Column2
-      A,B
-      C,D
-
   - name: JSONData
     type: json_array
-    default: "[]"
+    default: '["First","Second"]'
 
-  - name: JSONData2
+  - name: JSONDataWithObject
     type: json_array
     default: |
       [{"foo": "bar"}]
@@ -140,7 +137,7 @@ sources:
       SELECT base64encode(string="This should popup in a hex editor") AS Base64Hex,
              ChoiceSelector, MultiChoiceSelector, Flag, Flag2, Flag3,
              OffFlag, StartDate, StartDate2, StartDate3,
-             CSVData, CSVData2, JSONData, JSONData2,
+             CSVData, JSONData, JSONDataWithObject,
              len(list=FileUpload1) AS FileUpload1Length,
              stat(filename=FileUpload2) AS FileUpload2Stats
       FROM scope()
@@ -236,7 +233,7 @@ sources:
         name: Test Default ColumnTypes
         template: |
           /*
-          ## Make sure Base64hex data is automatically typed
+          ## Ensure that Base64hex data is automatically typed
           */
           SELECT base64encode(string="This should popup in a hex editor") AS Base64Hex FROM scope()
 

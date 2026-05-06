@@ -1,7 +1,12 @@
 ---
 title: Server.Utils.BackupDirectory
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Event Artifact]
+description: |
+  This server monitoring artifact will automatically export and
+  backup selected collected artifacts to a directory on the server.
 ---
 
 This server monitoring artifact will automatically export and

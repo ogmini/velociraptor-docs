@@ -1,10 +1,14 @@
 ---
 title: Linux.Ssh.AuthorizedKeys
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Finds and parses SSH authorized keys files.
 ---
 
-Find and parse ssh authorized keys files.
+Finds and parses SSH authorized keys files.
 
 From `man authorized_keys`:
 
@@ -18,7 +22,7 @@ field is optional.
 <pre><code class="language-yaml">
 name: Linux.Ssh.AuthorizedKeys
 description: |
-  Find and parse ssh authorized keys files.
+  Finds and parses SSH authorized keys files.
 
   From `man authorized_keys`:
 
@@ -29,9 +33,9 @@ description: |
   field is optional.
 
 parameters:
-  - name: sshKeyFiles
-    default: '.ssh/authorized_keys*'
-    description: Glob of authorized_keys file relative to a user's home directory.
+  - name: sshKeyFilesGlob
+    default: '/home/*/.ssh/authorized_keys*'
+    description: Glob of authorized_keys files.
   - name: keyTypes
     type: regex
     description: A regex to identify supported key types
@@ -47,17 +51,11 @@ sources:
 
     query: |
       -- Find all eligible files.
-      LET authorized_keys = SELECT * from foreach(
-          row={
-             SELECT Uid, User, Homedir from Artifact.Linux.Sys.Users()
-          },
-          query={
-             SELECT OSPath,
-                    if(condition=AlsoUpload, then=upload(file=OSPath)) AS _Upload,
-                    Mtime, Ctime, User, Uid
-             FROM glob(root=Homedir, globs=sshKeyFiles)
-             WHERE log(message="Parsing file %v", args=OSPath, dedup=-1)
-          })
+      LET authorized_keys = SELECT OSPath,
+        if(condition=AlsoUpload, then=upload(file=OSPath)) AS _Upload,
+        Mtime, Ctime
+      FROM glob(globs=sshKeyFilesGlob)
+      WHERE log(message="Parsing file %v", args=OSPath, dedup=-1)
 
       -- Split each line into parts considering possible quoting
       LET Parse(OSPath) =
@@ -80,7 +78,7 @@ sources:
 
       SELECT * FROM foreach(row=authorized_keys,
       query={
-        SELECT Uid, User, OSPath, _Upload, *
+        SELECT OSPath, _Upload, *
         FROM foreach(column="Parsed", row= Parse(OSPath=OSPath))
       })
 

@@ -2,7 +2,12 @@
 title: client_delete
 index: true
 noTitle: true
+sitemap:
+   disable: true
 no_edit: true
+description: |
+  Delete all information related to a client from the filestore.
+
 ---
 
 
@@ -23,9 +28,4 @@ client_id||string (required)
 really_do_it||bool
 
 <span class="permission_list vql_type">Required permissions:</span><span class="permission_list linkcolour label label-important">DELETE_RESULTS</span>
-
-### Description
-
-Delete all information related to a client from the filestore.
-
 

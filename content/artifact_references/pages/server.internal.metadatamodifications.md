@@ -1,7 +1,12 @@
 ---
 title: Server.Internal.MetadataModifications
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Event Artifact]
+description: |
+  This event artifact is an internal event stream over which
+  notifications of server metadata modifications are sent.
 ---
 
 This event artifact is an internal event stream over which

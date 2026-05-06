@@ -2,16 +2,19 @@
 menutitle: "Miscellaneous"
 title: "Miscellaneous commands"
 date: 2025-05-20
+last_reviewed: 2025-07-06
 draft: false
 weight: 120
 summary: All other commands not previously covered.
+description: |
+  All other commands not previously covered.
 ---
 
 All other commands not previously covered.
 
 ---
 
-#### [ client ]
+### [ client ]
 
 ```text
 client [<flags>]
@@ -23,7 +26,7 @@ client [<flags>]
 
 ---
 
-#### [ csv ]
+### [ csv ]
 
 ```text
 csv [<flags>] <files>...
@@ -45,17 +48,61 @@ Args:
 debian server [<flags>]
     Create a server package from a server config file.
 
-    --output=OUTPUT  Filename to output
-    --binary=BINARY  The binary to package
+    --release=RELEASE  Specify the debian release number
+    --output=OUTPUT    Output directory where package files will be written
+    --binary=BINARY    The binary to package
 ```
 
 ```text
 debian client [<flags>]
     Create a client package from a client config file.
 
-    --output=OUTPUT  Filename to output
-    --binary=BINARY  The binary to package
+    --release=RELEASE  Specify the debian release number
+    --output=OUTPUT    Filename to output
+    --binary=BINARY    The binary to package
 ```
+
+----
+
+### [ decrypt ]
+
+```text
+decrypt [<flags>] <collection> [<output>]
+    Decrypts an armoured collection file
+
+    -p, --[no-]show_password  Show the password
+        --format=json         Output format for csv output
+
+Args:
+  <collection>  A collection zip file to decrypt
+  [<output>]    The filename to write the decrypted collection on
+```
+
+##### Notes
+
+- This command does not support collection containers secured by the PGP or
+  fixed password schemes.
+
+- The zip file to decrypt needs to be specified with a full path, however use of
+  the wildcard character (`*`) in the filename and path components for the
+  collection argument is supported.
+
+- The output filename can include a path component but non-existent folders will
+  not be automatically created.
+
+- If the zip files are secured with the server's X.509 certificate then you need
+  to provide the config to the command using the `--config` flag so that it can
+  access the server's private key. Otherwise you will see the error
+  "GetPrivateKeyFromScope: No frontend configuration given" logged in the
+  terminal.
+
+##### See also
+
+- [[ fuse container ]](/docs/cli/fuse/),
+  which allows you to mount collection containers instead of extracting them.
+
+- [[ unzip ]](#-unzip-), which works similarly to `decrypt`
+  but lists filenames or extracts the files from a collection container.
 
 ----
 
@@ -94,8 +141,6 @@ Args:
 
 ### [ gui ]
 
-For more information, see
-[Deployment > Instant Velociraptor]({{< ref "/docs/deployment/#instant-velociraptor" >}}).
 
 ```text
 gui [<flags>]
@@ -106,32 +151,36 @@ gui [<flags>]
     --[no-]noclient        Do not bring up a client
 ```
 
+For more information, see
+[Deployment > Instant Velociraptor](/docs/deployment/#instant-velociraptor).
+
 ----
 
 ### [ hunts reconstruct ]
-
-This command aims to recover lost hunts, which may occur in unusual situations
-like the disk filling up unexpectedly, although its effectiveness depends on the
-completeness of the audit logs. If the audit logs themselves were corrupted or
-truncated, full recovery might not be possible using this method alone.
-
-In newer releases (0.7.0+), the way hunt data is stored has been changed (e.g.,
-using a single snapshot file instead of many individual files) and disk space
-checks are performed before writing, which should reduce the occurrence of
-corruption that necessitates this command. In version 0.7.0 and later, the
-command might rebuild hunts into a `/recovery/...` directory requiring manual
-movement of files after recovery.
-
-The command can be run while the server is running or stopped.
 
 ```text
 hunts reconstruct
     Reconstruct all hunt objects from logs
 ```
 
-**Usage:**
+This command aims to recover lost hunts, which may occur in unusual situations
+like the disk filling up unexpectedly, although its effectiveness depends on the
+completeness of the audit logs. If the audit logs themselves were corrupted or
+truncated, full recovery might not be possible using this method alone.
+
+In recent releases (0.7.0+), the way hunt data is stored has been changed (e.g.
+using a single snapshot file instead of many individual files) and disk space
+checks are performed before writing. This is intended to reduce the corruption
+occurring which would then necessitate use of this command. In version 0.7.0 and
+later, the command will rebuild corrupted hunts into a `/recovery/...` directory
+requiring manual movement of files after recovery.
+
+The command can be run while the server is running or stopped.
+
+##### Example
 
 ```sh
+# first change to the velociraptor user to avoid messing up the datastore's filesystem ACLs
 sudo -u velociraptor bash
 velociraptor hunts reconstruct --config /path/to/server.config.yaml
 ```
@@ -152,48 +201,22 @@ pool_client [<flags>]
 
 ----
 
-### [ query ]
-
-For more information, see
-[Deployment > Command line investigation tool]({{< ref "/docs/deployment/#command-line-investigation-tool" >}}).
-
-```text
-query [<flags>] <queries>...
-    Run a VQL query
-
-    -f, --[no-]from_files  Args are actually file names which will contain the VQL query
-        --timeout=0        Time collection out after this many seconds.
-        --org="root"       The Org ID to target with this query
-        --cpu_limit=0      A number between 0 to 100 representing maximum CPU utilization.
-        --format=json      Output format to use (text,json,csv,jsonl).
-        --dump_dir=""      Directory to dump output files.
-        --output=""        A file to store the output.
-        --env=ENV ...      Environment for the query.
-        --scope_file=""    Load scope from here. Creates a new file if file not found
-        --[no-]do_not_update_scope_file
-                           Do not update the scope file with the new scope
-
-Args:
-  <queries>  The VQL Query to run.
-```
-
-----
-
 ### [ rpm ]
 
 ```text
 rpm client [<flags>]
     Create a client package from a server config file.
 
-    --output=OUTPUT  Filename to output
+    --release="A"    Rpm package release version
+    --output="."     Directory to store rpms in. (Default current directory)
     --binary=BINARY  The binary to package
 ```
 
 ```text
 rpm server [<flags>]
     Create a server package from a server config file.
-
-    --output=OUTPUT  Filename to output
+    --release="A"    Rpm package release version
+    --output="."     Directory to store rpms in. (Default current directory)
     --binary=BINARY  The binary to package
 ```
 
@@ -217,14 +240,29 @@ Args:
   [<members>]  Members glob to extract
 ```
 
+##### Notes
+
+- Use of the wildcard character (`*`) in the filename and path components for
+  the input file argument is supported.
+
 - If the zip files are secured with the server's X509 certificate then you need
   to provide the config to the command using the `--config` flag so that it can
-  access the secured archive. Otherwise you will see the error
+  access the server's private key. Otherwise you will see the error
   "GetPrivateKeyFromScope: No frontend configuration given" logged in the
   terminal.
 
-- See also [[ fuse container ]]({{< ref "/docs/cli/fuse/" >}}), which
-  allows you to mount collection zips instead of extracting them.
+- If `--list` or `--print` are specified then files will not be dumped.
+
+- If `--dump_dir` is NOT specified then files will be extracted to the current
+  directory.
+
+##### See also
+
+- [[ decrypt ]](#-decrypt-), which removes the encryption from collection containers without
+  extracting the collection's files.
+
+- [[ fuse container ]](/docs/cli/fuse/),
+  which allows you to mount collection containers instead of extracting them.
 
 ----
 
@@ -234,5 +272,3 @@ Args:
 version
     Report the binary version and build information.
 ```
-
-

@@ -1,7 +1,11 @@
 ---
 title: Linux.Sys.ACPITables
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Firmware ACPI functional table common metadata and content.
 ---
 
 Firmware ACPI functional table common metadata and content.

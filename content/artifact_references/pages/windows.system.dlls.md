@@ -1,7 +1,12 @@
 ---
 title: Windows.System.DLLs
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Enumerate the DLLs loaded by a running process. It includes hash value
+  and certificate information.
 ---
 
 Enumerate the DLLs loaded by a running process. It includes hash value
@@ -29,7 +34,7 @@ parameters:
     default: .
     type: regex
   - name: DllRegex
-    description: A regex applied to the full dll path (e.g. whitelist all system dlls)
+    description: A regex applied to the full DLL path (e.g. whitelist all system DLLs)
     default: .
     type: regex
   - name: Calculate_Hash

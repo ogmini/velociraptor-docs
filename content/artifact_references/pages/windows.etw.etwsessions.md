@@ -1,7 +1,13 @@
 ---
 title: Windows.ETW.ETWSessions
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Event Artifact]
+description: |
+  Windows Event Tracing exposes a lot of low level system information
+  and events. It is normally employed by security tools to gather
+  telemetry, however may also be used maliciously.
 ---
 
 Windows Event Tracing exposes a lot of low level system information

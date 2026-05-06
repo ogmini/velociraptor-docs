@@ -1,7 +1,11 @@
 ---
 title: Windows.System.HostsFile
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Parses the Windows Hostsfile.
 ---
 
 Parses the Windows Hostsfile.

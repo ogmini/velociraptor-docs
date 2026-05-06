@@ -1,7 +1,13 @@
 ---
 title: Server.Hunts.CancelAndDelete
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  Velociraptor Hunts are a way of running the same flow on
+  many endpoints at once. Hunts issue very quickly and wait
+  until each endpoint returns results.
 ---
 
 Velociraptor Hunts are a way of running the same flow on
@@ -49,7 +55,12 @@ type: SERVER
 parameters:
   - name: HuntId
     description: hunt_id you would like to kill all associated flows.
-    default: "H.XXXXXX"
+
+  - name: Hunts
+    type: json_array
+    description: A list of hunt ids to delete
+    default: '[]'
+
   - name: DeleteAllFiles
     description: Also delete all collected files
     type: bool
@@ -57,20 +68,35 @@ parameters:
 sources:
   - name: CancelFlows
     query: |
-      // Get the flows and their running state for this hunt.
-      LET flows = SELECT ClientId, FlowId, HuntId, {
-            SELECT state FROM flows(client_id=ClientId, flow_id=FlowId)
-        } AS FlowState
+      LET all_flows(HuntId) = SELECT Flow.client_id AS client_id, Flow.session_id AS flow_id
       FROM hunt_flows(hunt_id=HuntId)
+      WHERE NOT Flow.state =~ "ERROR|FINISHED"
 
-      // Only cancel running flows.
-      SELECT *, cancel_flow(client_id=ClientId, flow_id=FlowId) as cancel_flow
-      FROM flows
-      WHERE NOT FlowState =~ "ERROR|FINISHED"
+      LET cancellations(HuntId) = SELECT HuntId, client_id, flow_id,
+             cancel_flow(client_id=client_id, flow_id=flow_id) AS Cancellation
+      FROM all_flows(HuntId=HuntId)
+
+      LET AllHunts &lt;= if(condition=HuntId, then=Hunts + HuntId, else=Hunts)
+
+      SELECT * FROM foreach(row={
+        SELECT _value AS HuntId
+        FROM items(item=AllHunts)
+        WHERE hunt_update(hunt_id=HuntId, add_labels="Deleting...")
+      }, query={
+        SELECT * FROM cancellations(HuntId=HuntId)
+      }, workers=2)
 
   - name: HuntFiles
     query: |
-      SELECT * FROM hunt_delete(hunt_id=HuntId, really_do_it=DeleteAllFiles)
+      LET AllHunts &lt;= if(condition=HuntId, then=Hunts + HuntId, else=Hunts)
+
+      SELECT * FROM foreach(row={
+        SELECT _value as HuntId
+        FROM items(item=AllHunts)
+      }, query={
+        SELECT *
+        FROM hunt_delete(hunt_id=HuntId, really_do_it=DeleteAllFiles)
+      })
 
 </code></pre>
 

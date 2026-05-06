@@ -1,12 +1,16 @@
 ---
 title: Windows.Applications.SBECmd
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Execute Eric Zimmerman's SBECmd and return output for analysis.
 ---
 
 Execute Eric Zimmerman's SBECmd and return output for analysis.
 
-SBECmd is a CLI for analyzing shellbags data.
+SBECmd is a CLI for analyzing Shellbags data.
 
 Objective:
 
@@ -21,7 +25,7 @@ Interpretation:
   browsed by the user.
 
 NOTE: Velociraptor can now parse Shellbags natively with the
-Windows.Forensics.Shellbags artifact.
+`Windows.Forensics.Shellbags` artifact.
 
 MITRE ATT&CK ID: TA0009 - Collection
 
@@ -31,7 +35,7 @@ name: Windows.Applications.SBECmd
 description: |
     Execute Eric Zimmerman's SBECmd and return output for analysis.
 
-    SBECmd is a CLI for analyzing shellbags data.
+    SBECmd is a CLI for analyzing Shellbags data.
 
     Objective:
 
@@ -46,7 +50,7 @@ description: |
       browsed by the user.
 
     NOTE: Velociraptor can now parse Shellbags natively with the
-    Windows.Forensics.Shellbags artifact.
+    `Windows.Forensics.Shellbags` artifact.
 
     MITRE ATT&amp;CK ID: TA0009 - Collection
 
@@ -123,7 +127,7 @@ sources:
            condition=UploadFiles,
            then={
              SELECT Name, upload(file=OSPath,
-                                 name=relpath(base=tempfile, path=OSPath)) as FileDetails
+                                 name=relpath(base=tempfolder, path=OSPath)) as FileDetails
              FROM glob(globs="/**", root=tempfolder)
            })
       },

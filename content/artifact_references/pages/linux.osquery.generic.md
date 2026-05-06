@@ -1,7 +1,12 @@
 ---
 title: Linux.OSQuery.Generic
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  OSQuery is an excellent tool for querying system state across the
+  three supported Velociraptor platform (Windows/Linux/MacOS).
 ---
 
 OSQuery is an excellent tool for querying system state across the

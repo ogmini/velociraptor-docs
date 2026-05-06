@@ -1,7 +1,13 @@
 ---
 title: Server.Utils.StartHuntExample
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  This example artifact shows how to create a utility artifact to
+  provide low privileged users with a controlled ability to perform
+  high privileged operations.
 ---
 
 This example artifact shows how to create a utility artifact to
@@ -15,7 +21,7 @@ hunt whenever they want.
 
 Usually to start a hunt, the user must have the `START_HUNT`
 permission - usually granted by the `administrator` or
-`investigator` roles. Additionally, in order to collect this
+`investigator` roles. Additionally, to collect this
 artifact, a user must have the `COLLECT_SERVER` permission - usually
 only granted by the `administrator` role.
 
@@ -23,7 +29,7 @@ So by default this artifact does not give any additional permissions
 and usually has to be collected by an `administrator` (which would
 be able to schedule hunts anyway).
 
-However, it is possible to mark the artifact as basic using the VQL
+However, it is possible to mark the artifact as basic by using the VQL
 
 ```vql
 SELECT artifact_set_metadata(
@@ -56,7 +62,7 @@ description: |
 
   Usually to start a hunt, the user must have the `START_HUNT`
   permission - usually granted by the `administrator` or
-  `investigator` roles. Additionally, in order to collect this
+  `investigator` roles. Additionally, to collect this
   artifact, a user must have the `COLLECT_SERVER` permission - usually
   only granted by the `administrator` role.
 
@@ -64,7 +70,7 @@ description: |
   and usually has to be collected by an `administrator` (which would
   be able to schedule hunts anyway).
 
-  However, it is possible to mark the artifact as basic using the VQL
+  However, it is possible to mark the artifact as basic by using the VQL
 
   ```vql
   SELECT artifact_set_metadata(

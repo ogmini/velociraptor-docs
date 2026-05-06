@@ -2,7 +2,17 @@
 title: fs
 index: true
 noTitle: true
+sitemap:
+   disable: true
 no_edit: true
+description: |
+  Provide access to the server's filestore and datastore.
+
+  Many VQL plugins produce references to files stored on the
+  server. This accessor can be used to open those files and read
+  them. Typically references to filestore or datastore files have
+  the "fs:" or "ds:" prefix.
+
 ---
 
 
@@ -13,6 +23,8 @@ no_edit: true
 ## fs
 <span class='vql_type label label-warning pull-right page-header'>Accessor</span>
 
+
+<span class="permission_list vql_type">Required permissions:</span><span class="permission_list linkcolour label label-important">SERVER_ADMIN</span>
 
 ### Description
 

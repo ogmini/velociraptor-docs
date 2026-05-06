@@ -1,10 +1,15 @@
 ---
 title: Windows.Attack.UnexpectedImagePath
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Some malware are hiding in plain text by masquerading a legitimate
+  executable name.
 ---
 
-Some malware are hiding in plain text by masqurading a legitimate
+Some malware are hiding in plain text by masquerading a legitimate
 executable name.
 
 This artifact looks for processes with known names that are being
@@ -15,7 +20,7 @@ loaded from unexpected locations.
 name: Windows.Attack.UnexpectedImagePath
 
 description: |
-  Some malware are hiding in plain text by masqurading a legitimate
+  Some malware are hiding in plain text by masquerading a legitimate
   executable name.
 
   This artifact looks for processes with known names that are being

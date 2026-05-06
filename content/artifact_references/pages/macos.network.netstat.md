@@ -1,7 +1,11 @@
 ---
 title: MacOS.Network.Netstat
 hidden: true
+sitemap:
+  disable: true
 tags: [Client Artifact]
+description: |
+  Report network connections, and enrich with process information.
 ---
 
 Report network connections, and enrich with process information.

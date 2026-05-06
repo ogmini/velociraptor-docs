@@ -1,7 +1,14 @@
 ---
 title: Server.Utils.ImportCollection
 hidden: true
+sitemap:
+  disable: true
 tags: [Server Artifact]
+description: |
+  The Velociraptor offline collector is an automated, preconfigured
+  collection tool. Users can use the collector to automatically
+  collect any artifacts on endpoints that do not have the Velociraptor
+  client (offline endpoints).
 ---
 
 The Velociraptor offline collector is an automated, preconfigured
@@ -15,12 +22,12 @@ collection in JSON files (and any uploaded files).
 This artifact allows for these offline collections to be imported
 back into the Velociraptor GUI. The collected data can then treated
 exactly the same as if it was collected by the regular Velociraptor
-client (i.e. post processed through the notebook interface), except
+client (i.e. post-processed through the notebook interface), except
 it was collected via the Sneakernet.
 
 NOTE: This artifact reads the collection ZIP from the server's
 filesystem. It is up to you to arrange for the file to be stored on
-the server (e.g. scp it over).
+the server (e.g. SCP it over).
 
 NOTE: This artifact is still experimental - please provide feedback
 on our issue board.
@@ -40,12 +47,12 @@ description: |
   This artifact allows for these offline collections to be imported
   back into the Velociraptor GUI. The collected data can then treated
   exactly the same as if it was collected by the regular Velociraptor
-  client (i.e. post processed through the notebook interface), except
+  client (i.e. post-processed through the notebook interface), except
   it was collected via the Sneakernet.
 
   NOTE: This artifact reads the collection ZIP from the server's
   filesystem. It is up to you to arrange for the file to be stored on
-  the server (e.g. scp it over).
+  the server (e.g. SCP it over).
 
   NOTE: This artifact is still experimental - please provide feedback
   on our issue board.
